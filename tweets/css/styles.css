@@ -75,6 +75,7 @@ header {
 }
 header hgroup {
   max-width: 560px;
+  min-width: 320px;
   margin: 0 auto;
   position: relative;
 }
@@ -102,9 +103,16 @@ header .newtweet {
   background: #fff;
   border-radius: .5em;
   border: 1px solid #dddddd;
-  max-width: 560px;
   margin: 3rem auto 1rem;
   font-size: 1.5rem;
+  max-width: 560px;
+  min-width: 320px;
+}
+@media screen and (max-width: 560px) {
+  #main {
+    border-width: 1px 0;
+    border-radius: 0;
+  }
 }
 
 nav {
@@ -121,24 +129,44 @@ nav button {
   padding: 0.1em;
   position: absolute;
   top: 1.5rem;
+  z-index: 1;
   cursor: pointer;
 }
 nav button#prev {
   left: 2rem;
+}
+@media screen and (max-width: 560px) {
+  nav button#prev {
+    left: 1rem;
+  }
 }
 nav button#next {
   right: 2rem;
   text-indent: 0.1em;
   padding-right: 0;
 }
+@media screen and (max-width: 560px) {
+  nav button#next {
+    right: 1rem;
+  }
+}
+@media screen and (max-width: 430px) {
+  nav button {
+    font-size: 1em;
+  }
+}
 nav dt {
   text-align: center;
   font-size: 2em;
   font-weight: 600;
-  line-height: 1.1em;
-  /*@media screen and (max-width: 530px) {
-  	font-size: 1.0em;
-  }*/
+  line-height: 1em;
+  position: relative;
+  top: 0.1em;
+}
+@media screen and (max-width: 430px) {
+  nav dt {
+    font-size: 1.3em;
+  }
 }
 nav dt em {
   font-size: 2rem;
@@ -146,9 +174,19 @@ nav dt em {
   font-style: normal;
   color: #aaa;
 }
+@media screen and (max-width: 430px) {
+  nav dt em {
+    font-size: 0.7em;
+  }
+}
 
 section {
   padding: 2rem;
+}
+@media screen and (max-width: 560px) {
+  section {
+    padding: 1rem 1rem;
+  }
 }
 section .tweet {
   display: table;
@@ -164,10 +202,24 @@ section .tweet .avatar {
   vertical-align: top;
   margin-right: 1rem;
 }
+@media screen and (max-width: 560px) {
+  section .tweet .avatar {
+    width: 40px;
+    height: 40px;
+    margin-right: 1rem;
+  }
+}
 section .tweet .tweet_body {
   display: table-cell;
   vertical-align: top;
   width: 100%;
+}
+section .tweet .tweet_info {
+  display: table;
+  width: 100%;
+}
+section .tweet .user {
+  display: table-cell;
 }
 section .tweet .user a {
   color: #222;
@@ -178,17 +230,19 @@ section .tweet .user a span {
   font-weight: 200;
   font-size: 0.9em;
 }
+section .tweet .user a:hover {
+  text-decoration: none;
+}
 section .tweet .user a:hover span {
   text-decoration: underline;
 }
 section .tweet a.permalink {
+  display: table-cell;
+  text-align: right;
   font-size: 0.8em;
   font-weight: 500;
   line-height: 1.8em;
   color: #222;
-  position: absolute;
-  right: 0;
-  top: 0;
 }
 section .tweet .content {
   margin-top: 0.5em;

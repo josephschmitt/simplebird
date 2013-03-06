@@ -1,3 +1,10 @@
+// Variables
+//----------------------------------------------//
+$gutter_width: 			2rem;
+$max_column_width: 		560px;
+$min_column_width:		320px;
+$small_screen_break: 	430px;
+
 @font-face {
 	font: {
 		family: 'simplebird';
@@ -81,12 +88,13 @@ header {
 	background: -webkit-linear-gradient(top, #333333 0%,#1E1E1E 100%); /* Webkit */
 	background: linear-gradient(to bottom, #333333 0%,#1E1E1E 100%); /* W3C */
 	color: #fff;
-	padding: 1rem 2rem;
+	padding: 1rem $gutter_width;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25),
 				inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 
 	hgroup {
-		max-width: 560px;
+		max-width: $max_column_width;
+		min-width: $min_column_width;
 		margin: 0 auto;
 		position: relative;
 	}
@@ -120,14 +128,21 @@ header {
 	background: #fff;
 	border-radius: .5em;
 	border: 1px solid #ddd;
-	max-width: 560px;
 	margin: 3rem auto 1rem;
 	font-size: 1.5rem;
+
+	max-width: $max_column_width;
+	min-width: $min_column_width;
+
+	@media screen and (max-width: $max_column_width) {
+		border-width: 1px 0;
+		border-radius: 0;
+	}
 }
 
 nav {
 	position: relative;
-	padding: 1.5rem 2rem;
+	padding: 1.5rem $gutter_width;
 	border-bottom: 1px solid #d3d3d3;
 
 	button {
@@ -139,16 +154,29 @@ nav {
 		padding: 0.1em;
 		position: absolute;
 		top: 1.5rem;
+		z-index: 1;
 		cursor: pointer;
 
 		&#prev {
-			left: 2rem;
+			left: $gutter_width;
+
+			@media screen and (max-width: $max_column_width) {
+				left: $gutter_width/2;
+			}
 		}
 
 		&#next {
-			right: 2rem;
+			right: $gutter_width;
 			text-indent: 0.1em;
 			padding-right: 0;
+
+			@media screen and (max-width: $max_column_width) {
+				right: $gutter_width/2;
+			}
+		}
+
+		@media screen and (max-width: $small_screen_break) {
+			font-size: 1em;
 		}
 	}
 
@@ -156,11 +184,13 @@ nav {
 		text-align: center;
 		font-size: 2em;
 		font-weight: 600;
-		line-height: 1.1em;
+		line-height: 1em;
+		position: relative;
+		top: 0.1em;
 
-		/*@media screen and (max-width: 530px) {
-			font-size: 1.0em;
-		}*/
+		@media screen and (max-width: $small_screen_break) {
+			font-size: 1.3em;
+		}
 
 		em {
 			font: {
@@ -169,12 +199,20 @@ nav {
 				style: normal;
 			}
 			color: #aaa;
+
+			@media screen and (max-width: $small_screen_break) {
+				font-size: 0.7em;
+			}
 		}
 	}
 }
 
 section {
-	padding: 2rem;
+	padding: $gutter_width;
+
+	@media screen and (max-width: $max_column_width) {
+		padding: $gutter_width/2 $gutter_width/2;
+	}
 
 	.tweet {
 		display: table;
@@ -188,7 +226,13 @@ section {
 			border-radius: 0.5rem;
 			display: table-cell;
 			vertical-align: top;
-			margin-right: 1rem;
+			margin-right: $gutter_width/2;
+
+			@media screen and (max-width: $max_column_width) {
+				width: 40px;
+				height: 40px;
+				margin-right: $gutter_width/2;
+			}
 		}
 
 		.tweet_body {
@@ -197,7 +241,14 @@ section {
 			width: 100%;
 		}
 
+		.tweet_info {
+			display: table;
+			width: 100%;
+		}
+
 		.user {
+			display: table-cell;
+
 			a {
 				color: #222;
 				font-weight: 500;
@@ -208,20 +259,24 @@ section {
 					font-size: 0.9em;
 				}
 
-				&:hover span {
-					text-decoration: underline;
+				&:hover {
+					text-decoration: none;
+
+					span {
+						text-decoration: underline;
+					}
 				}
 			}
 		}
 
 		a.permalink {
+			display: table-cell;
+			text-align: right;
+
 			font-size: 0.8em;
 			font-weight: 500;
 			line-height: 1.8em;
 			color: #222;
-			position: absolute;
-			right: 0;
-			top: 0;
 		}
 
 		.content {

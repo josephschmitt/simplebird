@@ -39,10 +39,12 @@
 		<li class="tweet">
 			<img class="avatar" src="{{user.profile_image_url_https}}" />
 			<div class="tweet_body">
-				<div class="user">
-					<a href="//twitter.com/{{user.screen_name}}/">{{user.name}} <span class="atname">{{user.screen_name}}</span></a>
+				<div class="tweet_info">
+					<div class="user">
+						<a href="//twitter.com/{{user.screen_name}}/">{{user.name}} <span class="atname">{{user.screen_name}}</span></a>
+					</div>
+					<a href="//twitter.com/{{user.screen_name}}/statuses/{{id_str}}" class="permalink">{{formatted_date}}</a>
 				</div>
-				<a href="//twitter.com/{{user.screen_name}}/statuses/{{id_str}}" class="permalink">{{formatted_date}}</a>
 				<p class="content">{{{formatted_content}}}</p>
 				<p class="metadata">
 					<span class="via">via {{{source}}}</span>
