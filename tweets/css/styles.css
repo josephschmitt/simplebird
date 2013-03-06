@@ -107,7 +107,7 @@ header .newtweet {
 
 nav {
   position: relative;
-  padding: 2rem;
+  padding: 1.5rem 2rem;
   border-bottom: 1px solid lightgrey;
 }
 nav button {
@@ -118,7 +118,7 @@ nav button {
   font-size: 1.5em;
   padding: 0.1em;
   position: absolute;
-  top: 2rem;
+  top: 1.5rem;
 }
 nav button#prev {
   left: 2rem;
