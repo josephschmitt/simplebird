@@ -51,6 +51,7 @@ function init() {
 }
 
 function prev() {
+	$('#prev').off('click');
 	$('#tweet_list').addClass('hidden');
 
 	//Defer heavy processing
@@ -61,6 +62,7 @@ function prev() {
 }
 
 function next() {
+	$('#next').off('click');
 	$('#tweet_list').addClass('hidden');
 
 	//Defer heavy processing
@@ -74,8 +76,8 @@ function refresh() {
 	//Render nav
 	$('nav').html(tmpl('tmpl_nav', Grailbird));
 
-	$('#prev').click(prev);
-	$('#next').click(next);
+	$('#prev').on('click', prev);
+	$('#next').on('click', next);
 
 	loadTweets(tweet_index[Grailbird.cur_page]);
 }
