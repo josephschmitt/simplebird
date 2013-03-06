@@ -1,0 +1,7 @@
+.hidden {
+  opacity: 0;
+}
+
+.atname:before {
+  content: '@';
+}

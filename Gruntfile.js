@@ -7,7 +7,7 @@ module.exports = function(grunt) {
 		sass: {
 			options: {
 				trace: true,
-				style: 'compressed'
+				style: 'expanded'
 			},
 			styles: {
 				files: {
