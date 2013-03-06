@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css" media="screen">
+		.hidden {
+			opacity: 0;
+		}
+
+		.atname:before {
+			content: '@';
+		}
+	</style>
+</head>
+<body>
+	<header></header>
+	<main>
+		<nav></nav>
+		<section>
+			<ul id="tweet_list" class="hidden"></ul>
+		</section>
+	</main>
+
+	<script type="text/tim" id="tmpl_header">
+		<h1><a class="atname" href="//twitter.com/{{screen_name}}">{{screen_name}}</a></h1>
+		<a href="https://twitter.com/intent/tweet" class="newtweet">New tweet</a>
+	</script>
+	<script type="text/tim" id="tmpl_nav">
+		<button id="prev">Previous</button>
+		<ul>
+			<li>{{date}} <em>{{tweet_count}} tweets</em></li>
+		</ul>
+		<button id="next">Next</button>
+	</script>
+	<script type="text/tim" id="tmpl_tweet">
+		<li class="tweet">
+			<img class="avatar" src="{{user.profile_image_url_https}}" />
+			<div class="user">
+				<span>{{user.name}}</span> 
+				<a href="//twitter.com/{{user.screen_name}}/" class="atname">{{user.screen_name}}</a>
+			</div>
+			<a href="//twitter.com/{{user.name}}/statuses/{{id_str}}" class="permalink">{{formatted_date}}</a>
+			<p class="content">{{{formatted_content}}}</p>
+			<p class="metadata">
+				<span class="via">via {{{source}}}</span>
+
+				{{#retweeter}}
+					<span class="retweeted">Retweeted by <a class="atname" href="//twitter.com/{{retweeter}}/">{{retweeter}}</a></span>, 
+				{{/retweeter}}
+
+				{{#in_reply_to_status_id_str}}
+					<a href="//twitter.com/reply_user/statuses/reply_status" class="replyto">in reply to <span class="atname">{{in_reply_to_screen_name}}</span></a>
+				{{/in_reply_to_status_id_str}}
+			</p>
+		</li>
+	</script>
+
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<!--script src="js/tim.js" type="text/javascript" charset="utf-8"></script-->
+	<script src="js/hogan-2.0.0.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/grailbird.js" type="text/javascript" charset="utf-8"></script>
+</body>
