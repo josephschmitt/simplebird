@@ -2,10 +2,7 @@
   "name": "Simplebird",
   "version": "0.1.0",
   "description": "Small, simple implementation of Grailbird Twitter archive.",
-  "main": "index.html",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "main": "tweets/index.html",
   "repository": "https://github.com/josephschmitt/simplebird",
   "author": "Joseph Schmitt",
   "license": "BSD",
