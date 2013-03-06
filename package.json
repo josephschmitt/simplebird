@@ -1,6 +1,6 @@
 {
   "name": "Simplebird",
-  "version": "0.1",
+  "version": "0.1.0",
   "description": "Small, simple implementation of Grailbird Twitter archive.",
   "main": "index.html",
   "scripts": {

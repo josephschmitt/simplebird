@@ -1,8 +1,5 @@
 module.exports = function(grunt) {
 
-	var mainJSFiles = ['site/scripts/jquery-*.js', 'site/scripts/rainbow*.js', 'site/scripts/main.js'];
-	var galleryJSFiles = ['site/scripts/jquery.isotope*.js', 'site/scripts/gallery.js'];
-
 	// Project configuration.
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -14,8 +11,7 @@ module.exports = function(grunt) {
 			},
 			styles: {
 				files: {
-					'assets/styles/styles.css': ['site/sass/styles.scss'],
-					'assets/styles/gallery.css': ['site/sass/gallery.scss']
+					'tweets/css/styles.css': ['tweets/sass/styles.scss']
 				}
 			}
 		},
@@ -24,30 +20,21 @@ module.exports = function(grunt) {
 			options: {
 				banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
 			},
-			main: {
+			scripts: {
 				files: {
-					'assets/scripts/main.min.js': mainJSFiles
-				}
-			},
-			gallery: {
-				files: {
-					'assets/scripts/gallery.min.js': galleryJSFiles
+					'tweets/js/simplebird.min.js': ['tweets/js/jquery*.js', 'tweets/js/hogan*.js', 'tweets/js/*.js']
 				}
 			}
 		},
 
 		watch: {
 			sass: {
-				files: ['site/sass/*.scss'],
+				files: ['tweets/sass/*.scss'],
 				tasks: ['sass']
 			},
-			scripts_main: {
-				files: mainJSFiles,
-				tasks: ['uglify:main']
-			},
-			scripts_gallery: {
-				files: galleryJSFiles,
-				tasks: ['uglify:gallery']
+			scripts: {
+				files: ['tweets/js/*.js'],
+				tasks: ['uglify']
 			}
 		}
 	});
