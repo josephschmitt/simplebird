@@ -4,26 +4,32 @@
 	<meta charset="utf-8">
 	<title></title>
 	<link rel="stylesheet" href="css/styles.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 	<header></header>
-	<main>
+	<div id="main">
 		<nav></nav>
 		<section>
 			<ul id="tweet_list" class="hidden"></ul>
 		</section>
-	</main>
+	</div>
+	<footer>
+		(c)	2013 Joseph Schmitt | http://joe.sh
+	</footer>
 
 	<script type="text/tim" id="tmpl_header">
-		<h1><a class="atname" href="//twitter.com/{{screen_name}}">{{screen_name}}</a></h1>
-		<a href="https://twitter.com/intent/tweet" class="newtweet">New tweet</a>
+		<hgroup>
+			<h1><a class="atname" href="//twitter.com/{{screen_name}}">{{screen_name}}</a></h1>
+			<a href="https://twitter.com/intent/tweet" class="newtweet" data-icon>&#xe000;</a>
+		</hgroup>
 	</script>
 	<script type="text/tim" id="tmpl_nav">
-		<button id="prev">Previous</button>
-		<ul>
-			<li>{{date}} <em>{{tweet_count}} tweets</em></li>
-		</ul>
-		<button id="next">Next</button>
+		<button id="prev" data-icon>&#xe001;</button>
+		<dl>
+			<dt>{{date}} <em>{{tweet_count}} tweets</em></dt>
+		</dl>
+		<button id="next" data-icon>&#xe002;</button>
 	</script>
 	<script type="text/tim" id="tmpl_tweet">
 		<li class="tweet">
