@@ -31,7 +31,7 @@ function init() {
 			return cur_index.tweet_count;
 		},
 		hasPrev: function() {
-			return !!this.cur_page != this.tweet_index.length - 1;	
+			return !!this.cur_page != this.tweet_index.length - 1;
 		},
 		hasNext: function() {
 			return !!this.cur_page != 0;
@@ -102,14 +102,14 @@ function drawTweets(tweets) {
 	//Tweet Content
 	$.each(tweets, function(index, tweet) {
 		curTweet = tweet.retweeted_status || tweet;
-		
+
 		tweet.formatted_content = curTweet.formatted_content = tweet.formatted_content || getFormattedTweetContent(curTweet);
 		tweet.formatted_date = curTweet.formatted_date = tweet.formatted_date || getFormattedDate(curTweet.created_at);
 
 		if (tweet.retweeted_status) {
 			curTweet.retweeter = tweet.user.screen_name;
 		}
-		
+
 		render += tmpl('tmpl_tweet', curTweet);
 	});
 
@@ -128,7 +128,7 @@ function getFormattedTweetContent(tweet) {
 	});
 
 	$.each(entities.urls, function(index, url) {
-		markup = markup.replace(new RegExp(url.url, 'g'), '<a href="' + url.expanded_url + '">' + url.expanded_url + '</a>');
+		markup = markup.replace(new RegExp(url.url, 'g'), '<a title="' + url.expanded_url + '" href="' + url.expanded_url + '">' + url.display_url + '</a>');
 	});
 
 	$.each(entities.user_mentions, function(index, mention) {
