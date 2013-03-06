@@ -29,6 +29,12 @@ function init() {
 		tweet_count: function() {
 			var cur_index = this.tweet_index[this.cur_page];
 			return cur_index.tweet_count;
+		},
+		hasPrev: function() {
+			return !!this.cur_page != this.tweet_index.length - 1;	
+		},
+		hasNext: function() {
+			return !!this.cur_page != 0;
 		}
 	};
 

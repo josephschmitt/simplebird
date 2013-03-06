@@ -25,11 +25,15 @@
 		</hgroup>
 	</script>
 	<script type="text/tim" id="tmpl_nav">
-		<button id="prev" data-icon>&#xe001;</button>
+		{{#hasPrev}}
+			<button id="prev" data-icon>&#xe001;</button>
+		{{/hasPrev}}
 		<dl>
 			<dt>{{date}} <em>{{tweet_count}} tweets</em></dt>
 		</dl>
-		<button id="next" data-icon>&#xe002;</button>
+		{{#hasNext}}
+			<button id="next" data-icon>&#xe002;</button>
+		{{/hasNext}}
 	</script>
 	<script type="text/tim" id="tmpl_tweet">
 		<li class="tweet">
