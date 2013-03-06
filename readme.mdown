@@ -1,2 +1,5 @@
 # Simplebird
 Simplebird is small, fast, simple implementation of Grailbird Twitter archive. Its goal is to load the minimum amount of data as quickly as possible to display your past tweets. It also aims to be viewable and performant on desktop machines as well as touch and mobile devices.
+
+# Installation
+Put the `tweets` directory on your web server. Copy and paste the `data/` directory from your downloaded Tweet archive inside the `tweets` folder. Open index.html.
