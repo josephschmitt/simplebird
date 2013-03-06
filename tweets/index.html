@@ -38,23 +38,24 @@
 	<script type="text/tim" id="tmpl_tweet">
 		<li class="tweet">
 			<img class="avatar" src="{{user.profile_image_url_https}}" />
-			<div class="user">
-				<span>{{user.name}}</span> 
-				<a href="//twitter.com/{{user.screen_name}}/" class="atname">{{user.screen_name}}</a>
+			<div class="tweet_body">
+				<div class="user">
+					<a href="//twitter.com/{{user.screen_name}}/">{{user.name}} <span class="atname">{{user.screen_name}}</span></a>
+				</div>
+				<a href="//twitter.com/{{user.name}}/statuses/{{id_str}}" class="permalink">{{formatted_date}}</a>
+				<p class="content">{{{formatted_content}}}</p>
+				<p class="metadata">
+					<span class="via">via {{{source}}}</span>
+
+					{{#retweeter}}
+						<span class="retweeted">Retweeted by <a class="atname" href="//twitter.com/{{retweeter}}/">{{retweeter}}</a></span>, 
+					{{/retweeter}}
+
+					{{#in_reply_to_status_id_str}}
+						<a href="//twitter.com/reply_user/statuses/reply_status" class="replyto">in reply to <span class="atname">{{in_reply_to_screen_name}}</span></a>
+					{{/in_reply_to_status_id_str}}
+				</p>
 			</div>
-			<a href="//twitter.com/{{user.name}}/statuses/{{id_str}}" class="permalink">{{formatted_date}}</a>
-			<p class="content">{{{formatted_content}}}</p>
-			<p class="metadata">
-				<span class="via">via {{{source}}}</span>
-
-				{{#retweeter}}
-					<span class="retweeted">Retweeted by <a class="atname" href="//twitter.com/{{retweeter}}/">{{retweeter}}</a></span>, 
-				{{/retweeter}}
-
-				{{#in_reply_to_status_id_str}}
-					<a href="//twitter.com/reply_user/statuses/reply_status" class="replyto">in reply to <span class="atname">{{in_reply_to_screen_name}}</span></a>
-				{{/in_reply_to_status_id_str}}
-			</p>
 		</li>
 	</script>
 

@@ -44,8 +44,11 @@ ul, dl {
 }
 
 a {
-	&:hover, &:visited {
-		color: inherit;
+	color: #25b2e6;
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
 	}
 }
 
@@ -55,10 +58,6 @@ a {
 
 .atname {
 	text-decoration: none;
-
-	&:hover {
-		text-decoration: underline;
-	}
 
 	&:before {
 		content: '@';
@@ -92,12 +91,13 @@ header {
 		position: relative;
 	}
 
-	h1 {
+	a {
 		font: {
 			size: 2em;
 			weight: 200;
 		};
 
+		color: #fff;
 	}
 
 	.newtweet {
@@ -139,6 +139,7 @@ nav {
 		padding: 0.1em;
 		position: absolute;
 		top: 1.5rem;
+		cursor: pointer;
 
 		&#prev {
 			left: 2rem;
@@ -174,6 +175,75 @@ nav {
 
 section {
 	padding: 2rem;
+
+	.tweet {
+		display: table;
+		padding-bottom: 1em;
+		margin-bottom: 1em;
+		border-bottom: 1px solid #efefef;
+		position: relative;
+		width: 100%;
+
+		.avatar {
+			border-radius: 0.5rem;
+			display: table-cell;
+			vertical-align: top;
+			margin-right: 1rem;
+		}
+
+		.tweet_body {
+			display: table-cell;
+			vertical-align: top;
+			width: 100%;
+		}
+
+		.user {
+			a {
+				color: #222;
+				font-weight: 500;
+
+				span {
+					color: #25b2e6;
+					font-weight: 200;
+					font-size: 0.9em;
+				}
+
+				&:hover span {
+					text-decoration: underline;
+				}
+			}
+		}
+
+		a.permalink {
+			font-size: 0.8em;
+			line-height: 1.5em;
+			color: #222;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+
+		.content {
+			white-space: pre-wrap;
+		}
+
+		a:not(.atname) {
+
+		}
+
+		.metadata {
+			margin-bottom: 0;
+
+			&, a {
+				font-size: 1.3rem;
+				color: #333;
+			}
+
+			a {
+				font-weight: 500;
+			}
+		}
+	}
 }
 
 footer {

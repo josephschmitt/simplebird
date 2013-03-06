@@ -32,8 +32,12 @@ ul, dl {
   list-style: none;
 }
 
-a:hover, a:visited {
-  color: inherit;
+a {
+  color: #25b2e6;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
 }
 
 .hidden {
@@ -42,9 +46,6 @@ a:hover, a:visited {
 
 .atname {
   text-decoration: none;
-}
-.atname:hover {
-  text-decoration: underline;
 }
 .atname:before {
   content: '@';
@@ -77,9 +78,10 @@ header hgroup {
   margin: 0 auto;
   position: relative;
 }
-header h1 {
+header a {
   font-size: 2em;
   font-weight: 200;
+  color: #fff;
 }
 header .newtweet {
   background: #3476b3;
@@ -119,6 +121,7 @@ nav button {
   padding: 0.1em;
   position: absolute;
   top: 1.5rem;
+  cursor: pointer;
 }
 nav button#prev {
   left: 2rem;
@@ -146,6 +149,58 @@ nav dt em {
 
 section {
   padding: 2rem;
+}
+section .tweet {
+  display: table;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid #efefef;
+  position: relative;
+  width: 100%;
+}
+section .tweet .avatar {
+  border-radius: 0.5rem;
+  display: table-cell;
+  vertical-align: top;
+  margin-right: 1rem;
+}
+section .tweet .tweet_body {
+  display: table-cell;
+  vertical-align: top;
+  width: 100%;
+}
+section .tweet .user a {
+  color: #222;
+  font-weight: 500;
+}
+section .tweet .user a span {
+  color: #25b2e6;
+  font-weight: 200;
+  font-size: 0.9em;
+}
+section .tweet .user a:hover span {
+  text-decoration: underline;
+}
+section .tweet a.permalink {
+  font-size: 0.8em;
+  line-height: 1.5em;
+  color: #222;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+section .tweet .content {
+  white-space: pre-wrap;
+}
+section .tweet .metadata {
+  margin-bottom: 0;
+}
+section .tweet .metadata, section .tweet .metadata a {
+  font-size: 1.3rem;
+  color: #333;
+}
+section .tweet .metadata a {
+  font-weight: 500;
 }
 
 footer {
