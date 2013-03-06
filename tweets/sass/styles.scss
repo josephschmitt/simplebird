@@ -104,9 +104,11 @@ header {
 		background: #3476b3;
 		background: -webkit-linear-gradient(top, #7db7e9 0%,#3476b3 100%); /* Webkit */
 		background: linear-gradient(to bottom, #7db7e9 0%,#3476b3 100%); /* W3C */
-		padding: 0.5em;
+		padding: 0.5em 0.6em;
 		font-size: 1.5em;
 		border-radius: .25em;
+		box-shadow: 0 1px 1px #1e1e1e,
+					inset 0 1px 1px rgba(255, 255, 255, 0.3);
 		
 		position: absolute;
 		right: 0;
