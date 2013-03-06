@@ -22,7 +22,7 @@ module.exports = function(grunt) {
 			},
 			scripts: {
 				files: {
-					'tweets/js/simplebird.min.js': ['tweets/js/jquery*.js', 'tweets/js/hogan*.js', 'tweets/js/*.js']
+					'tweets/js/simplebird.min.js': ['tweets/js/jquery*.js', 'tweets/js/hogan*.js', 'tweets/js/simplebird.js']
 				}
 			}
 		},
@@ -33,7 +33,7 @@ module.exports = function(grunt) {
 				tasks: ['sass']
 			},
 			scripts: {
-				files: ['tweets/js/*.js'],
+				files: ['!tweets/js/*.min.js', 'tweets/js/*.js'],
 				tasks: ['uglify']
 			}
 		}
