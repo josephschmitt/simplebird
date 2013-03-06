@@ -184,7 +184,7 @@ section .tweet .user a:hover span {
 section .tweet a.permalink {
   font-size: 0.8em;
   font-weight: 500;
-  line-height: 1.5em;
+  line-height: 1.8em;
   color: #222;
   position: absolute;
   right: 0;
