@@ -46,13 +46,15 @@ function init() {
 					data.calendar_month = CalendarMonths[data.month - 1];
 					return data.year == cur_year;
 				});
+				months.reverse();
 
 				//If not a complete year, fill it out
 				while (months.length > 0 && months.length < 12) {
 					months.push({
 						year: cur_year,
 					    tweet_count: 0,
-					    month: months.length
+					    month: months.length + 1,
+					    calendar_month: CalendarMonths[months.length]
 					});
 				}
 
@@ -79,9 +81,6 @@ function init() {
 	//Render header
 	$('header').html(tmpl('tmpl_header', Grailbird.user_details));
 
-	//Render history
-	$('#tweet_history').html(tmpl('tmpl_history', Grailbird));
-
 	$('.newtweet').click(function(e) {
 		e.preventDefault();
 		window.open(e.target.getAttribute('href'), '', 'width=520,height=257,menubar=no,toolbar=no');
@@ -89,6 +88,13 @@ function init() {
 
 	//Render tweets
 	refresh();
+
+	//Defer menu rendering until after tweets have rendered
+	setTimeout(function() {
+		//Render history
+		$('#tweet_history').html(tmpl('tmpl_history', Grailbird));
+		drawTweetHistory();
+	}, 10);
 }
 
 function prev() {
@@ -121,6 +127,14 @@ function refresh() {
 	$('#next').on('click', next);
 
 	loadTweets(tweet_index[Grailbird.cur_page]);
+}
+
+function drawTweetHistory() {
+	var max = parseInt($('#tweet_history ol.tweet_months').data('max-tweet-count'));
+	$('#tweet_history .count_bar').each(function(index, bar) {
+		var val = parseInt($(bar).data('tweet-count'))/max;
+		$(bar).height((100 - (val * 100)) + '%');
+	});
 }
 
 function loadTweets(tweet_data) {
