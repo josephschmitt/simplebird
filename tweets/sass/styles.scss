@@ -1,8 +1,9 @@
 // Variables
 //----------------------------------------------//
-$gutter_width: 			2rem;
+$gutter_width: 			20px;
 $max_column_width: 		560px;
 $min_column_width:		320px;
+$rounded_layout_break:	$max_column_width + $gutter_width * 2;
 $small_screen_break: 	430px;
 $baby_blue:				#94ddf8;
 $darken_baby_blue:		#25b2e6;
@@ -90,20 +91,27 @@ header {
 	background: -webkit-linear-gradient(top, #333333 0%,#1E1E1E 100%); /* Webkit */
 	background: linear-gradient(to bottom, #333333 0%,#1E1E1E 100%); /* W3C */
 	color: #fff;
-	padding: 1rem $gutter_width;
+	padding: 1rem 0;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25),
 				inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-
-	@media screen and (max-width: calc($max_column_width-($gutter_width*2))) {
-		padding-left: $gutter_width/2;
-		padding-right: $gutter_width/2;
-	}
 
 	hgroup {
 		max-width: $max_column_width;
 		min-width: $min_column_width;
 		margin: 0 auto;
 		position: relative;
+
+		@media screen and (max-width: $rounded_layout_break) {
+			//Work around stupid iOS box-sizing bug
+			> *:first-child {
+				margin-left: $gutter_width/2;
+			}
+
+			> *:last-child {
+				margin-right: $gutter_width/2;
+			}
+
+		}
 	}
 
 	a {
@@ -141,9 +149,12 @@ header {
 	max-width: $max_column_width;
 	min-width: $min_column_width;
 
-	@media screen and (max-width: $max_column_width) {
+	@media screen and (max-width: $rounded_layout_break) {
 		border-width: 1px 0;
 		border-radius: 0;
+		max-width: 100%;
+		margin-left: 0;
+		margin-right:0;
 	}
 }
 
@@ -167,7 +178,7 @@ nav {
 		&#prev {
 			left: $gutter_width;
 
-			@media screen and (max-width: $max_column_width) {
+			@media screen and (max-width: $rounded_layout_break) {
 				left: $gutter_width/2;
 			}
 		}
@@ -177,7 +188,7 @@ nav {
 			text-indent: 0.1em;
 			padding-right: 0;
 
-			@media screen and (max-width: $max_column_width) {
+			@media screen and (max-width: $rounded_layout_break) {
 				right: $gutter_width/2;
 			}
 		}
@@ -265,8 +276,8 @@ nav {
 section {
 	padding: $gutter_width;
 
-	@media screen and (max-width: $max_column_width) {
-		padding: $gutter_width/2 $gutter_width/2;
+	@media screen and (max-width: $rounded_layout_break) {
+		padding: $gutter_width/2;
 	}
 
 	.tweet {
@@ -283,7 +294,7 @@ section {
 			vertical-align: top;
 			margin-right: $gutter_width/2;
 
-			@media screen and (max-width: $max_column_width) {
+			@media screen and (max-width: $rounded_layout_break) {
 				width: 40px;
 				height: 40px;
 				margin-right: $gutter_width/2;
