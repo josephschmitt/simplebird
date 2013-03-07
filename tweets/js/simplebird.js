@@ -115,22 +115,20 @@ function init() {
 
 function prev() {
 	$('#prev').off('click');
-	$('#tweet_list').addClass('hidden');
-
-	//Defer heavy processing
-	setTimeout(function() {
-		Grailbird.cur_page = Math.min(Grailbird.tweet_index.length - 1, Grailbird.cur_page + 1);
-		refresh();
-	}, 10);
+	loadPage(Math.min(Grailbird.tweet_index.length - 1, Grailbird.cur_page + 1));
 }
 
 function next() {
 	$('#next').off('click');
+	loadPage(Math.max(0, Grailbird.cur_page - 1));
+}
+
+function loadPage(page) {
 	$('#tweet_list').addClass('hidden');
 
 	//Defer heavy processing
 	setTimeout(function() {
-		Grailbird.cur_page = Math.max(0, Grailbird.cur_page - 1);
+		Grailbird.cur_page = page;
 		refresh();
 	}, 10);
 }
@@ -156,7 +154,7 @@ function drawTweetHistory() {
 
 	$('#tweet_history .bar a').click(function(e) {
 		e.preventDefault();
-		var var_name = $(e.target).parent().data('var-name');
+		var var_name = $(e.target).parents('.bar').data('var-name');
 		loadHistoryFromVarName(var_name);
 	});
 }
@@ -168,6 +166,8 @@ function refreshActiveHistory() {
 }
 
 function loadHistoryFromVarName(var_name) {
+	if (!var_name) {return;}
+	
 	var index;
 	$.each(Grailbird.tweet_index, function(i, data) {
 		if (!index && data.var_name == var_name) {
@@ -175,8 +175,7 @@ function loadHistoryFromVarName(var_name) {
 		}
 	});
 
-	Grailbird.cur_page = index;
-	refresh();
+	loadPage(index);
 }
 
 function loadTweets(tweet_data) {
