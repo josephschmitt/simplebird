@@ -16,13 +16,21 @@ module.exports = function(grunt) {
 			}
 		},
 
+		concat: {
+			lib: {
+				files: {
+					'tweets/js/lib.js': ['tweets/js/jquery*.js', 'tweets/js/hogan*.js']
+				}
+			}
+		},
+
 		uglify: {
 			options: {
 				banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
 			},
 			scripts: {
 				files: {
-					'tweets/js/simplebird.min.js': ['tweets/js/jquery*.js', 'tweets/js/hogan*.js', 'tweets/js/simplebird.js']
+					'tweets/js/simplebird.min.js': ['tweets/js/simplebird.js']
 				}
 			}
 		},
@@ -33,7 +41,7 @@ module.exports = function(grunt) {
 				tasks: ['sass']
 			},
 			scripts: {
-				files: ['!tweets/js/*.min.js', 'tweets/js/*.js'],
+				files: ['!tweets/js/*.min.js', '!tweets/js/lib.js', 'tweets/js/*.js'],
 				tasks: ['uglify']
 			}
 		}
@@ -41,6 +49,7 @@ module.exports = function(grunt) {
 
 	//Load packages
 	grunt.loadNpmTasks('grunt-contrib-sass');
+	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
