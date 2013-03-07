@@ -186,6 +186,44 @@ nav dt em {
   }
 }
 
+#tweet_history {
+  padding: 2rem 1em;
+}
+#tweet_history, #tweet_history ol {
+  list-style: none;
+  margin: 0;
+  width: 100%;
+}
+#tweet_history h2 {
+  color: #333;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+#tweet_history .tweet_months {
+  display: table;
+  padding: 0;
+}
+#tweet_history .tweet_months .bar {
+  display: table-cell;
+  padding-right: 3px;
+}
+#tweet_history .tweet_months .bar a {
+  display: block;
+  background: #94ddf8;
+  height: 2em;
+}
+#tweet_history .tweet_months .bar .count_bar {
+  background: #f8f8f8;
+  display: block;
+  height: 2em;
+}
+#tweet_history .tweet_months .bar.active a {
+  background: #25b2e6;
+}
+#tweet_history .tweet_months .bar.active .count_bar {
+  background: #dddddd;
+}
+
 section {
   padding: 2rem;
 }

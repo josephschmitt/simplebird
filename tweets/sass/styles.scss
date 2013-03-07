@@ -4,6 +4,8 @@ $gutter_width: 			2rem;
 $max_column_width: 		560px;
 $min_column_width:		320px;
 $small_screen_break: 	430px;
+$baby_blue:				#94ddf8;
+$darken_baby_blue:		#25b2e6;
 
 @font-face {
 	font: {
@@ -207,6 +209,54 @@ nav {
 
 			@media screen and (max-width: $small_screen_break) {
 				font-size: 0.7em;
+			}
+		}
+	}
+}
+
+#tweet_history {
+	padding: $gutter_width 1em;
+
+	&, ol {
+		list-style: none;
+		margin: 0;
+		width: 100%;
+	}
+
+	h2 {
+		color: #333;
+		font-size: 1.2em;
+		font-weight: 600;
+	}
+
+	.tweet_months {
+		display: table;
+		padding: 0;
+
+		.bar {
+			display: table-cell;
+			padding-right: 3px;
+
+			a {
+				display: block;
+				background: $baby_blue;
+				height: 2em;
+			}
+
+			.count_bar {
+				background: #f8f8f8;
+				display: block;
+				height: 2em;
+			}
+
+			&.active {
+				a {
+					background: $darken_baby_blue;
+				}
+
+				.count_bar {
+					background: #dddddd;
+				}
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 var Grailbird = {};
 var Templates = {};
-var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var CalendarMonths = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 $.when(
 	$.getScript('data/js/payload_details.js'),
@@ -24,11 +24,49 @@ function init() {
 			var cur_index = this.tweet_index[this.cur_page];
 			var month = cur_index.month || 0;
 			var year = cur_index.year;
-			return months[month - 1] + ' ' + year;
+			return CalendarMonths[month - 1] + ' ' + year;
 		},
 		tweet_count: function() {
 			var cur_index = this.tweet_index[this.cur_page];
 			return cur_index.tweet_count;
+		},
+		tweet_history: function() {
+			var tweet_history = [];
+			var max_tweet_count = 0;
+			var cur_year = Grailbird.tweet_index[0].year;
+			var results = 1;
+
+			//Subtract a year until there are no more years in history
+			while(results != 0) {
+				if (results == 0) {break;}
+
+				//Gather all months belonging to the same year in a single array
+				var months = $.grep(Grailbird.tweet_index, function(data, index) {
+					max_tweet_count = Math.max(max_tweet_count, data.tweet_count);
+					data.calendar_month = CalendarMonths[data.month - 1];
+					return data.year == cur_year;
+				});
+
+				//If not a complete year, fill it out
+				while (months.length > 0 && months.length < 12) {
+					months.push({
+						year: cur_year,
+					    tweet_count: 0,
+					    month: months.length
+					});
+				}
+
+				tweet_history.push({
+					year: cur_year,
+					months: months,
+					max_tweet_count: max_tweet_count
+				});
+				
+				results = months.length;
+				cur_year--;
+			}
+
+			return tweet_history;
 		},
 		hasPrev: function() {
 			return !!this.cur_page != this.tweet_index.length - 1;
@@ -40,6 +78,9 @@ function init() {
 
 	//Render header
 	$('header').html(tmpl('tmpl_header', Grailbird.user_details));
+
+	//Render history
+	$('#tweet_history').html(tmpl('tmpl_history', Grailbird));
 
 	$('.newtweet').click(function(e) {
 		e.preventDefault();

@@ -10,6 +10,7 @@
 	<header></header>
 	<div id="main">
 		<nav></nav>
+		<ol id="tweet_history"></ol>
 		<section>
 			<ul id="tweet_list" class="hidden"></ul>
 		</section>
@@ -34,6 +35,18 @@
 		{{#hasNext}}
 			<button id="next" data-icon>&#xe002;</button>
 		{{/hasNext}}
+	</script>
+	<script type="text/tim" id="tmpl_history">
+		{{#tweet_history}}
+			<li class="tweet_year">
+				<h2>{{year}}</h2>
+				<ol class="tweet_months" data-max-tweet-count="{{max_tweet_count}}">
+				{{#months}}
+					<li class="bar"><a href="" title="{{calendar_month}} — {{tweet_count}} tweets"><span data-tweet-count="{{tweet_count}}" class="count_bar"></span></a></li>
+				{{/months}}
+				</ol>
+			</li>
+		{{/tweet_history}}
 	</script>
 	<script type="text/tim" id="tmpl_tweet">
 		<li class="tweet">
