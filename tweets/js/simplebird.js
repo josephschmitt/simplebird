@@ -153,12 +153,30 @@ function drawTweetHistory() {
 		var val = parseInt($(bar).data('tweet-count'))/max;
 		$(bar).height((100 - (val * 100)) + '%');
 	});
+
+	$('#tweet_history .bar a').click(function(e) {
+		e.preventDefault();
+		var var_name = $(e.target).parent().data('var-name');
+		loadHistoryFromVarName(var_name);
+	});
 }
 
 function refreshActiveHistory() {
 	//Set active state on history
 	$('#tweet_history .active').removeClass('active');
 	$('#tweet_history .bar[data-var-name=' + (Grailbird.tweet_index[Grailbird.cur_page].var_name) + ']').addClass('active');
+}
+
+function loadHistoryFromVarName(var_name) {
+	var index;
+	$.each(Grailbird.tweet_index, function(i, data) {
+		if (!index && data.var_name == var_name) {
+			index = i;
+		}
+	});
+
+	Grailbird.cur_page = index;
+	refresh();
 }
 
 function loadTweets(tweet_data) {
