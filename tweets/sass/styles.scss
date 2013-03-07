@@ -161,6 +161,7 @@ nav {
 	position: relative;
 	padding: 1.5rem $gutter_width;
 	border-bottom: 1px solid #d3d3d3;
+	margin-bottom: $gutter_width/2;
 
 	button {
 		background: #e2e2e2;
@@ -225,7 +226,7 @@ nav {
 }
 
 #tweet_history {
-	padding: $gutter_width 1em;
+	padding: $gutter_width;
 
 	&, ol {
 		list-style: none;
@@ -278,6 +279,8 @@ nav {
 
 section {
 	padding: $gutter_width;
+	margin-bottom: $gutter_width/2;
+	border-bottom: 1px solid #d3d3d3;
 
 	@media screen and (max-width: $rounded_layout_break) {
 		padding: $gutter_width/2;
@@ -290,6 +293,11 @@ section {
 		border-bottom: 1px solid #efefef;
 		position: relative;
 		width: 100%;
+
+		&:last-child {
+			margin-bottom: 0;
+			border-bottom: 0;
+		}
 
 		.avatar {
 			border-radius: 0.5rem;
