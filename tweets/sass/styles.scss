@@ -329,6 +329,7 @@ section {
 		.tweet_info {
 			display: table;
 			width: 100%;
+			line-height: 1em;
 		}
 
 		.user {
@@ -339,7 +340,7 @@ section {
 				font-weight: 500;
 
 				span {
-					color: #25b2e6;
+					color: #aaa;
 					font-weight: 200;
 					font-size: 0.9em;
 				}
@@ -360,7 +361,6 @@ section {
 
 			font-size: 0.8em;
 			font-weight: 500;
-			line-height: 1.8em;
 			color: #222;
 		}
 

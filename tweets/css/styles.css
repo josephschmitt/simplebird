@@ -281,6 +281,7 @@ section .tweet .tweet_body {
 section .tweet .tweet_info {
   display: table;
   width: 100%;
+  line-height: 1em;
 }
 section .tweet .user {
   display: table-cell;
@@ -290,7 +291,7 @@ section .tweet .user a {
   font-weight: 500;
 }
 section .tweet .user a span {
-  color: #25b2e6;
+  color: #aaa;
   font-weight: 200;
   font-size: 0.9em;
 }
@@ -305,7 +306,6 @@ section .tweet a.permalink {
   text-align: right;
   font-size: 0.8em;
   font-weight: 500;
-  line-height: 1.8em;
   color: #222;
 }
 section .tweet .content {
