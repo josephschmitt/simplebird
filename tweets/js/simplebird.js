@@ -147,7 +147,7 @@ function refresh() {
 
 function drawTweetHistory() {
 	var max = parseInt($('#tweet_history ol.tweet_months').data('max-tweet-count'));
-	$('#tweet_history .count_bar').each(function(index, bar) {
+	$('#tweet_history a .count_bar').each(function(index, bar) {
 		var val = parseInt($(bar).data('tweet-count'))/max;
 		$(bar).height((100 - (val * 100)) + '%');
 	});

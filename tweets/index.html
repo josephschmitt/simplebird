@@ -42,7 +42,13 @@
 				<h2>{{year}}</h2>
 				<ol class="tweet_months" data-max-tweet-count="{{max_tweet_count}}">
 				{{#months}}
-					<li class="bar" data-var-name="{{var_name}}"><a href="" title="{{calendar_month}} {{year}} — {{tweet_count}} tweets"><span data-tweet-count="{{tweet_count}}" class="count_bar"></span></a></li>
+					<li class="bar" data-var-name="{{var_name}}">
+						{{#tweet_count}}
+							<a href="" title="{{calendar_month}} {{year}} — {{tweet_count}} tweets"><span data-tweet-count="{{tweet_count}}" class="count_bar"></span></a></li>
+						{{/tweet_count}}
+						{{^tweet_count}}
+							<span data-tweet-count="{{tweet_count}}" class="count_bar"></span>
+						{{/tweet_count}}
 				{{/months}}
 				</ol>
 			</li>
