@@ -27,13 +27,13 @@
 	</script>
 	<script type="text/tim" id="tmpl_nav">
 		{{#hasPrev}}
-			<button id="prev" data-icon>&#xe001;</button>
+			<button id="prev" data-icon>&#xe002;</button>
 		{{/hasPrev}}
 		<dl>
 			<dt>{{date}} <em>{{tweet_count}} tweets</em></dt>
 		</dl>
 		{{#hasNext}}
-			<button id="next" data-icon>&#xe002;</button>
+			<button id="next" data-icon>&#xe005;</button>
 		{{/hasNext}}
 	</script>
 	<script type="text/tim" id="tmpl_history">
@@ -65,12 +65,11 @@
 					<a href="//twitter.com/{{user.screen_name}}/statuses/{{id_str}}" class="permalink">{{formatted_date}}</a>
 				</div>
 				<p class="content">{{{formatted_content}}}</p>
+				{{#retweeter}}
+					<div class="retweeted">Retweeted by <a class="atname" href="//twitter.com/{{retweeter}}/">{{retweeter}}</a></div>
+				{{/retweeter}}
 				<p class="metadata">
 					<span class="via">via {{{source}}}</span>
-
-					{{#retweeter}}
-						<span class="retweeted">Retweeted by <a class="atname" href="//twitter.com/{{retweeter}}/">{{retweeter}}</a></span>, 
-					{{/retweeter}}
 
 					{{#in_reply_to_status_id_str}}
 						<a href="//twitter.com/reply_user/statuses/reply_status" class="replyto">in reply to <span class="atname">{{in_reply_to_screen_name}}</span></a>

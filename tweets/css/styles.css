@@ -92,6 +92,9 @@ header a {
   font-weight: 200;
   color: #fff;
 }
+header a:hover {
+  text-decoration: none;
+}
 header .newtweet {
   background: #3476b3;
   background: -webkit-linear-gradient(top, #7db7e9 0%, #3476b3 100%);
@@ -309,7 +312,23 @@ section .tweet a.permalink {
   color: #222;
 }
 section .tweet .content {
-  margin-top: 0.5em;
+  margin: 0.5em 0;
+}
+section .tweet .retweeted {
+  font-size: 0.8em;
+  font-weight: 200;
+  margin-top: -0.25em;
+}
+section .tweet .retweeted, section .tweet .retweeted a {
+  color: #aaa;
+}
+section .tweet .retweeted:before {
+  content: "\e001";
+  font-family: 'simplebird';
+  font-size: 1.2em;
+  position: relative;
+  top: 0.15em;
+  margin-right: 0.2em;
 }
 section .tweet .metadata {
   margin-bottom: 0;
@@ -319,6 +338,12 @@ section .tweet .metadata, section .tweet .metadata a {
   color: #333;
 }
 section .tweet .metadata a {
+  font-weight: 500;
+}
+section .tweet .metadata .replyto {
+  font-weight: 400;
+}
+section .tweet .metadata .replyto span {
   font-weight: 500;
 }
 

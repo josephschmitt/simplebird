@@ -121,6 +121,10 @@ header {
 		};
 
 		color: #fff;
+
+		&:hover {
+			text-decoration: none;
+		}
 	}
 
 	.newtweet {
@@ -365,11 +369,26 @@ section {
 		}
 
 		.content {
-			margin-top: 0.5em;
+			margin: 0.5em 0;
 		}
 
-		a:not(.atname) {
+		.retweeted {
+			&, a {
+				color: #aaa;
+			}
 
+			font-size: 0.8em;
+			font-weight: 200;
+			margin-top: -0.25em;
+
+			&:before {
+				content: "\e001";
+				font-family: 'simplebird';
+				font-size: 1.2em;
+				position: relative;
+				top: 0.15em;
+				margin-right: 0.2em;
+			}
 		}
 
 		.metadata {
@@ -382,6 +401,14 @@ section {
 
 			a {
 				font-weight: 500;
+			}
+
+			.replyto {
+				font-weight: 400;
+
+				span {
+					font-weight: 500;
+				}
 			}
 		}
 	}
