@@ -38,8 +38,6 @@ function init() {
 
 			//Subtract a year until there are no more years in history
 			while(results != 0) {
-				if (results == 0) {break;}
-
 				//Gather all months belonging to the same year in a single array
 				var months = $.grep(Grailbird.tweet_index, function(data, index) {
 					max_tweet_count = Math.max(max_tweet_count, data.tweet_count);
@@ -48,14 +46,32 @@ function init() {
 				});
 				months.reverse();
 
+				results = months.length;
+				if (results == 0) {break;}
+
 				//If not a complete year, fill it out
+				var initial_month = months[0].month;
 				while (months.length > 0 && months.length < 12) {
-					months.push({
-						year: cur_year,
-					    tweet_count: 0,
-					    month: months.length + 1,
-					    calendar_month: CalendarMonths[months.length]
-					});
+					//Fill in through end of year
+					if (initial_month == 1) {
+						months.push({
+							year: cur_year,
+						    tweet_count: 0,
+						    month: months.length + 1,
+						    calendar_month: CalendarMonths[months.length]
+						});
+					}
+					//Fill in beginning of year
+					else {
+						months.unshift({
+							year: cur_year,
+						    tweet_count: 0,
+						    month: initial_month,
+						    calendar_month: CalendarMonths[initial_month]
+						});
+
+						initial_month += 1;
+					}
 				}
 
 				tweet_history.push({
@@ -64,7 +80,6 @@ function init() {
 					max_tweet_count: max_tweet_count
 				});
 				
-				results = months.length;
 				cur_year--;
 			}
 
@@ -94,6 +109,7 @@ function init() {
 		//Render history
 		$('#tweet_history').html(tmpl('tmpl_history', Grailbird));
 		drawTweetHistory();
+		refreshActiveHistory();
 	}, 10);
 }
 
@@ -126,6 +142,8 @@ function refresh() {
 	$('#prev').on('click', prev);
 	$('#next').on('click', next);
 
+	refreshActiveHistory();
+
 	loadTweets(tweet_index[Grailbird.cur_page]);
 }
 
@@ -135,6 +153,12 @@ function drawTweetHistory() {
 		var val = parseInt($(bar).data('tweet-count'))/max;
 		$(bar).height((100 - (val * 100)) + '%');
 	});
+}
+
+function refreshActiveHistory() {
+	//Set active state on history
+	$('#tweet_history .active').removeClass('active');
+	$('#tweet_history .bar[data-var-name=' + (Grailbird.tweet_index[Grailbird.cur_page].var_name) + ']').addClass('active');
 }
 
 function loadTweets(tweet_data) {
