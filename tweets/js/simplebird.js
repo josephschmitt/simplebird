@@ -153,7 +153,6 @@ function drawTweetHistory() {
 	});
 
 	$('#tweet_history .bar a').click(function(e) {
-		e.preventDefault();
 		var var_name = $(e.target).parents('.bar').data('var-name');
 		loadHistoryFromVarName(var_name);
 	});
