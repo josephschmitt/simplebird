@@ -92,6 +92,11 @@ header {
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25),
 				inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 
+	@media screen and (max-width: calc($max_column_width-($gutter_width*2))) {
+		padding-left: $gutter_width/2;
+		padding-right: $gutter_width/2;
+	}
+
 	hgroup {
 		max-width: $max_column_width;
 		min-width: $min_column_width;
