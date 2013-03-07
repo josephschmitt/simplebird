@@ -207,6 +207,12 @@ nav dt em {
 #tweet_history .tweet_year {
   margin-bottom: 1em;
 }
+#tweet_history .tweet_year:not(.active) {
+  opacity: .5;
+}
+#tweet_history .tweet_year:not(.active):hover {
+  opacity: 1;
+}
 #tweet_history .tweet_months {
   display: table;
   padding: 0;

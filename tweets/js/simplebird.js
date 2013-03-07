@@ -160,8 +160,10 @@ function drawTweetHistory() {
 
 function refreshActiveHistory() {
 	//Set active state on history
-	$('#tweet_history .active').removeClass('active');
-	$('#tweet_history .bar[data-var-name=' + (Grailbird.tweet_index[Grailbird.cur_page].var_name) + ']').addClass('active');
+	$('#tweet_history .active').removeClass('active')
+		.parents('.tweet_year').removeClass('active');
+	$('#tweet_history .bar[data-var-name=' + (Grailbird.tweet_index[Grailbird.cur_page].var_name) + ']').addClass('active')
+		.parents('.tweet_year').addClass('active');
 }
 
 function loadHistoryFromVarName(var_name) {
