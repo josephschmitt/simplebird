@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title></title>
 	<link rel="stylesheet" href="css/styles.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 </head>
 <body>
 	<header></header>
@@ -68,13 +68,18 @@
 				{{#retweeter}}
 					<div class="retweeted">Retweeted by <a class="atname" href="//twitter.com/{{retweeter}}/">{{retweeter}}</a></div>
 				{{/retweeter}}
-				<p class="metadata">
-					<span class="via">via {{{source}}}</span>
+				<div class="tweet_footer">
+					<p class="metadata">
+						<span class="via">via {{{source}}}</span>
 
-					{{#in_reply_to_status_id_str}}
-						<a href="//twitter.com/reply_user/statuses/reply_status" class="replyto">in reply to <span class="atname">{{in_reply_to_screen_name}}</span></a>
-					{{/in_reply_to_status_id_str}}
-				</p>
+						{{#in_reply_to_status_id_str}}
+							<a href="//twitter.com/reply_user/statuses/reply_status" class="replyto">in reply to <span class="atname">{{in_reply_to_screen_name}}</span></a>
+						{{/in_reply_to_status_id_str}}
+					</p>
+					<p class="tweet_actions">
+						<a class="reply" href="//twitter.com/intent/tweet?in_reply_to={{id_str}}">&#xe006;</a>&nbsp;<a class="fav" href="//twitter.com/intent/favorite?tweet_id={{id_str}}">&#xe007;</a>
+					</p>
+				</div>
 			</div>
 		</li>
 	</script>

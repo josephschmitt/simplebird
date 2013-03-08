@@ -149,6 +149,7 @@ header {
 	border: 1px solid #ddd;
 	margin: 3rem auto 1rem;
 	font-size: 1.5rem;
+	overflow: hidden;
 
 	max-width: $max_column_width;
 	min-width: $min_column_width;
@@ -391,8 +392,21 @@ section {
 			}
 		}
 
+		.tweet_footer {
+			margin-top: 0.5em;
+			display: table;
+			width: 100%;
+
+			> * {
+				display: table-cell;
+				vertical-align: top;
+			}
+		}
+
 		.metadata {
-			margin-bottom: 0;
+			margin: 0;
+			width: 100%;
+			line-height: 1.2em;
 
 			&, a {
 				font-size: 1.3rem;
@@ -408,6 +422,23 @@ section {
 
 				span {
 					font-weight: 500;
+				}
+			}
+		}
+
+		.tweet_actions {
+			font-family: simplebird;
+			font-size: 1.2em;
+			margin: 0;
+			position: relative;
+			top: -0.1em;
+
+			a {
+				color: #aaa;
+				margin-left: 0.4em;
+
+				&:hover {
+					text-decoration: none;
 				}
 			}
 		}

@@ -116,6 +116,7 @@ header .newtweet {
   border: 1px solid #dddddd;
   margin: 3rem auto 1rem;
   font-size: 1.5rem;
+  overflow: hidden;
   max-width: 560px;
   min-width: 320px;
 }
@@ -330,8 +331,19 @@ section .tweet .retweeted:before {
   top: 0.15em;
   margin-right: 0.2em;
 }
+section .tweet .tweet_footer {
+  margin-top: 0.5em;
+  display: table;
+  width: 100%;
+}
+section .tweet .tweet_footer > * {
+  display: table-cell;
+  vertical-align: top;
+}
 section .tweet .metadata {
-  margin-bottom: 0;
+  margin: 0;
+  width: 100%;
+  line-height: 1.2em;
 }
 section .tweet .metadata, section .tweet .metadata a {
   font-size: 1.3rem;
@@ -345,6 +357,20 @@ section .tweet .metadata .replyto {
 }
 section .tweet .metadata .replyto span {
   font-weight: 500;
+}
+section .tweet .tweet_actions {
+  font-family: simplebird;
+  font-size: 1.2em;
+  margin: 0;
+  position: relative;
+  top: -0.1em;
+}
+section .tweet .tweet_actions a {
+  color: #aaa;
+  margin-left: 0.4em;
+}
+section .tweet .tweet_actions a:hover {
+  text-decoration: none;
 }
 
 footer {
