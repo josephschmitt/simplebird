@@ -114,7 +114,7 @@ header .newtweet {
   background: #fff;
   border-radius: .5em;
   border: 1px solid #dddddd;
-  margin: 3rem auto 1rem;
+  margin: 3rem auto;
   font-size: 1.5rem;
   overflow: hidden;
   max-width: 560px;
@@ -376,5 +376,10 @@ section .tweet .tweet_actions a:hover {
 footer {
   text-align: center;
   font-size: 1.3em;
-  color: #999;
+  color: #bbb;
+  padding-bottom: 1em;
+}
+footer a {
+  color: #bbb;
+  text-decoration: underline;
 }

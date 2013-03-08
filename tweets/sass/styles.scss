@@ -147,7 +147,7 @@ header {
 	background: #fff;
 	border-radius: .5em;
 	border: 1px solid #ddd;
-	margin: 3rem auto 1rem;
+	margin: 3rem auto;
 	font-size: 1.5rem;
 	overflow: hidden;
 
@@ -448,5 +448,11 @@ section {
 footer {
 	text-align: center;
 	font-size: 1.3em;
-	color: #999;
+	color: #bbb;
+	padding-bottom: 1em;
+
+	a {
+		color: #bbb;
+		text-decoration: underline;
+	}
 }
