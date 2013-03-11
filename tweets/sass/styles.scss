@@ -1,8 +1,9 @@
 // Variables
 //----------------------------------------------//
-$gutter_width: 			20px;
-$max_column_width: 		560px;
-$min_column_width:		320px;
+$gutter_width: 			2rem;
+$max_column_width: 		56rem;
+$min_column_width:		32rem;
+$history_height:		15em;
 $rounded_layout_break:	$max_column_width + $gutter_width * 2;
 $small_screen_break: 	430px;
 $baby_blue:				#94ddf8;
@@ -149,6 +150,7 @@ header {
 	border: 1px solid #ddd;
 	margin: 3rem auto;
 	font-size: 1.5rem;
+	position: relative;
 	overflow: hidden;
 
 	max-width: $max_column_width;
@@ -164,9 +166,9 @@ header {
 
 nav {
 	position: relative;
+	z-index: 1;
 	padding: 1.5rem $gutter_width;
 	border-bottom: 1px solid #d3d3d3;
-	margin-bottom: $gutter_width/2;
 
 	button {
 		background: #e2e2e2;
@@ -230,70 +232,11 @@ nav {
 	}
 }
 
-#tweet_history {
-	padding: $gutter_width;
-
-	&, ol {
-		list-style: none;
-		margin: 0;
-		width: 100%;
-	}
-
-	h2 {
-		color: #333;
-		font-size: 1.2em;
-		font-weight: 600;
-	}
-
-	.tweet_year {
-		margin-bottom: 1em;
-
-		&:not(.active) {
-			opacity: .5;
-
-			&:hover {
-				opacity: 1;
-			}
-		}
-	}
-
-	.tweet_months {
-		display: table;
-		padding: 0;
-
-		.bar {
-			display: table-cell;
-			padding-right: 3px;
-
-			a {
-				display: block;
-				background: $baby_blue;
-				height: 2em;
-			}
-
-			.count_bar {
-				background: #f8f8f8;
-				display: block;
-				height: 2em;
-			}
-
-			&.active {
-				a {
-					background: $darken_baby_blue;
-				}
-
-				.count_bar {
-					background: #dddddd;
-				}
-			}
-		}
-	}
-}
-
 section {
 	padding: $gutter_width;
-	margin-bottom: $gutter_width/2;
-	border-bottom: 1px solid #d3d3d3;
+	background: #fff;
+	position: relative;
+	z-index: 1;
 
 	@media screen and (max-width: $rounded_layout_break) {
 		padding: $gutter_width/2;
@@ -442,6 +385,86 @@ section {
 				}
 			}
 		}
+	}
+}
+
+#tweet_history {
+	position: absolute;
+	padding: $gutter_width;
+	background: #fff;
+	max-height: $history_height;
+	overflow-y: auto;
+
+	&, ol {
+		list-style: none;
+		margin: 0;
+		width: 100%;
+	}
+
+	h2 {
+		color: #333;
+		font-size: 1.2em;
+		font-weight: 600;
+	}
+
+	.tweet_year {
+		margin-bottom: 1em;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+
+		&:not(.active) {
+			opacity: .5;
+
+			&:hover {
+				opacity: 1;
+			}
+		}
+	}
+
+	.tweet_months {
+		display: table;
+		padding: 0;
+
+		.bar {
+			display: table-cell;
+			padding-right: 3px;
+
+			a {
+				display: block;
+				background: $baby_blue;
+				height: 2em;
+			}
+
+			.count_bar {
+				background: #f8f8f8;
+				display: block;
+				height: 2em;
+			}
+
+			&.active {
+				a {
+					background: $darken_baby_blue;
+				}
+
+				.count_bar {
+					background: #dddddd;
+				}
+			}
+		}
+	}
+}
+
+.menu_open {
+	section {
+		-webkit-transition: -webkit-transform .2s ease;
+		-webkit-transform: translateY($history_height);
+		border-top: 1px solid #d3d3d3;
+	}
+
+	section, nav {
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	}
 }
 
