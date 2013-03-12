@@ -147,8 +147,9 @@ function toggleTweetHistory(e, open) {
 
     	setTimeout(function() {
 	        $targ.addClass('menu_open');
-	        var height = Math.min($('#tweet_history').css('height'), parseInt($('#tweet_history').css('max-height')));
-	        $('section').css({
+	        
+	        var height = Math.min(parseInt($('#tweet_history').css('height')), parseInt($('#tweet_history').css('max-height')));
+	        $('.menu_open section').css({
 	        	'-webkit-transform': 'translateY(' + height + 'px)',
 	        	'-moz-transform': 'translateY(' + height + 'px)',
 	        	'-ms-transform': 'translateY(' + height + 'px)',
