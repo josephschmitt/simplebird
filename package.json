@@ -1,6 +1,6 @@
 {
   "name": "Simplebird",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Small, simple implementation of Grailbird Twitter archive.",
   "main": "tweets/index.html",
   "repository": "https://github.com/josephschmitt/simplebird",
