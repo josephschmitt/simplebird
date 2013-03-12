@@ -211,7 +211,10 @@ nav {
 	z-index: 2;
 	padding: 1.5rem $gutter_width;
 	border-bottom: 1px solid #d3d3d3;
+	background: #fff;
 	-webkit-transform: translateZ(0);
+
+	@include transition(box-shadow .3s ease);
 
 	button {
 		background: #e2e2e2;
@@ -302,6 +305,7 @@ section {
 	background: #fff;
 	position: relative;
 	z-index: 1;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
 	@include transition(-webkit-transform .3s ease);
 	-webkit-transform: translateZ(0);
@@ -531,7 +535,6 @@ section {
 
 .menu_open {
 	section {
-		@include transition(-webkit-transform .2s ease);
 		-webkit-transform: translateY($history_height);
 		border-top: 1px solid #d3d3d3;
 	}

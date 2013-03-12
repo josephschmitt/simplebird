@@ -143,7 +143,13 @@ nav {
   z-index: 2;
   padding: 1.5rem 20px;
   border-bottom: 1px solid #d3d3d3;
+  background: #fff;
   -webkit-transform: translateZ(0);
+  -webkit-transition: box-shadow 0.3s ease;
+  -moz-transition: box-shadow 0.3s ease;
+  -ms-transition: box-shadow 0.3s ease;
+  -o-transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease;
 }
 nav button {
   background: #e2e2e2;
@@ -226,6 +232,7 @@ section {
   background: #fff;
   position: relative;
   z-index: 1;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   -webkit-transition: -webkit-transform 0.3s ease;
   -moz-transition: -webkit-transform 0.3s ease;
   -ms-transition: -webkit-transform 0.3s ease;
@@ -420,11 +427,6 @@ section .tweet .tweet_actions a:hover {
 }
 
 .menu_open section {
-  -webkit-transition: -webkit-transform 0.2s ease;
-  -moz-transition: -webkit-transform 0.2s ease;
-  -ms-transition: -webkit-transform 0.2s ease;
-  -o-transition: -webkit-transform 0.2s ease;
-  transition: -webkit-transform 0.2s ease;
   -webkit-transform: translateY(17em);
   border-top: 1px solid #d3d3d3;
 }
