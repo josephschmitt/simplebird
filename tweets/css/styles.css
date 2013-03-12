@@ -362,7 +362,7 @@ section .tweet .tweet_actions a:hover {
   position: absolute;
   padding: 20px;
   background: #fff;
-  max-height: 18em;
+  max-height: 17em;
   overflow-y: auto;
 }
 @media screen and (max-width: 430px) {
@@ -423,11 +423,14 @@ section .tweet .tweet_actions a:hover {
   -ms-transition: -webkit-transform 0.2s ease;
   -o-transition: -webkit-transform 0.2s ease;
   transition: -webkit-transform 0.2s ease;
-  -webkit-transform: translateY(18em);
+  -webkit-transform: translateY(17em);
   border-top: 1px solid #d3d3d3;
 }
 .menu_open section, .menu_open nav {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.menu_open #tweet_history {
+  -webkit-overflow-scrolling: touch;
 }
 
 footer {

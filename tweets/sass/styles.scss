@@ -3,7 +3,7 @@
 $gutter_width: 			20px;
 $max_column_width: 		560px;
 $min_column_width:		320px;
-$history_height:		18em;
+$history_height:		17em;
 $rounded_layout_break:	$max_column_width + $gutter_width * 2;
 $small_screen_break: 	430px;
 $baby_blue:				#94ddf8;
@@ -536,6 +536,10 @@ section {
 
 	section, nav {
 		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	}
+
+	#tweet_history {
+		-webkit-overflow-scrolling: touch;
 	}
 }
 
