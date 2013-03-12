@@ -194,7 +194,7 @@ function drawTweetHistory() {
 	$('#tweet_history .bar a').on('click', function(e) {
 		var var_name = $(e.target).parents('.bar').data('var-name');
 		loadHistoryFromVarName(var_name);
-	}).noClickDelay();
+	});
 }
 
 function refreshActiveHistory() {
