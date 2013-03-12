@@ -86,10 +86,10 @@ function init() {
 			return tweet_history;
 		},
 		hasPrev: function() {
-			return !!this.cur_page != this.tweet_index.length - 1;
+			return !!(this.cur_page < this.tweet_index.length - 1);
 		},
 		hasNext: function() {
-			return !!this.cur_page != 0;
+			return !!(this.cur_page != 0);
 		}
 	};
 
