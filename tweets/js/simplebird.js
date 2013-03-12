@@ -138,6 +138,8 @@ function openTweetActionInWindow(e) {
 }
 
 function toggleTweetHistory(e, open) {
+	e.preventDefault();
+	
     var $targ = $('#main');
     var open = open === undefined ? !$targ.hasClass('menu_open') : open;
     if (open) {
@@ -149,12 +151,12 @@ function toggleTweetHistory(e, open) {
         	'-ms-transform': 'translateY(' + height + 'px)',
         	'transform': 'translateY(' + height + 'px)'
         });
+
+		scrollTo('#main', 150);
     }
     else {
         $targ.removeClass('menu_open');
     }
-
-	scrollTo('#main', 150);
 }
 
 function refresh() {
