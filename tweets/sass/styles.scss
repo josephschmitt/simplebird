@@ -440,6 +440,10 @@ section {
 	max-height: $history_height;
 	overflow-y: auto;
 
+	@include small_screen_break {
+		padding: $gutter_width/2;
+	}
+
 	&, ol {
 		list-style: none;
 		margin: 0;

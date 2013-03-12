@@ -351,6 +351,11 @@ section .tweet .tweet_actions a:hover {
   max-height: 18em;
   overflow-y: auto;
 }
+@media screen and (max-width: 430px) {
+  #tweet_history {
+    padding: 10px;
+  }
+}
 #tweet_history, #tweet_history ol {
   list-style: none;
   margin: 0;
