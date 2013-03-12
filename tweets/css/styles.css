@@ -143,6 +143,7 @@ nav {
   z-index: 2;
   padding: 1.5rem 20px;
   border-bottom: 1px solid #d3d3d3;
+  -webkit-transform: translateZ(0);
 }
 nav button {
   background: #e2e2e2;
@@ -225,12 +226,12 @@ section {
   background: #fff;
   position: relative;
   z-index: 1;
-  -webkit-transition: -webkit-transform 0.2s ease;
-  -moz-transition: -webkit-transform 0.2s ease;
-  -ms-transition: -webkit-transform 0.2s ease;
-  -o-transition: -webkit-transform 0.2s ease;
-  transition: -webkit-transform 0.2s ease;
-  -webkit-transform: translateY(0);
+  -webkit-transition: -webkit-transform 0.3s ease;
+  -moz-transition: -webkit-transform 0.3s ease;
+  -ms-transition: -webkit-transform 0.3s ease;
+  -o-transition: -webkit-transform 0.3s ease;
+  transition: -webkit-transform 0.3s ease;
+  -webkit-transform: translateZ(0);
 }
 @media screen and (max-width: 600px) {
   section {
@@ -364,6 +365,7 @@ section .tweet .tweet_actions a:hover {
   background: #fff;
   max-height: 17em;
   overflow-y: auto;
+  -webkit-transform: translateZ(0);
 }
 @media screen and (max-width: 430px) {
   #tweet_history {

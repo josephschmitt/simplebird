@@ -211,6 +211,7 @@ nav {
 	z-index: 2;
 	padding: 1.5rem $gutter_width;
 	border-bottom: 1px solid #d3d3d3;
+	-webkit-transform: translateZ(0);
 
 	button {
 		background: #e2e2e2;
@@ -302,8 +303,8 @@ section {
 	position: relative;
 	z-index: 1;
 
-	@include transition(-webkit-transform .2s ease);
-	-webkit-transform: translateY(0);
+	@include transition(-webkit-transform .3s ease);
+	-webkit-transform: translateZ(0);
 
 	@include rounded_layout_break {
 		padding: $gutter_width $gutter_width/2;
@@ -461,6 +462,7 @@ section {
 	background: #fff;
 	max-height: $history_height;
 	overflow-y: auto;
+	-webkit-transform: translateZ(0);
 
 	@include small_screen_break {
 		padding: $gutter_width/2;
