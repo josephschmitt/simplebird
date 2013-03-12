@@ -120,6 +120,18 @@ function next() {
 	loadPage(Math.max(0, Grailbird.cur_page - 1));
 }
 
+function loadPage(page) {
+	$('#tweet_list').addClass('hidden');
+
+	scrollTo('#main', 150);
+
+	//Defer heavy processing
+	setTimeout(function() {
+		Grailbird.cur_page = page;
+		refresh();
+	}, 150);
+}
+
 function openTweetActionInWindow(e) {
 	e.preventDefault();
 	window.open(e.target.getAttribute('href'), '', 'width=520,height=360,menubar=no,toolbar=no');
@@ -141,16 +153,8 @@ function toggleTweetHistory(e, open) {
     else {
         $targ.removeClass('menu_open');
     }
-}
 
-function loadPage(page) {
-	$('#tweet_list').addClass('hidden');
-
-	//Defer heavy processing
-	setTimeout(function() {
-		Grailbird.cur_page = page;
-		refresh();
-	}, 10);
+	scrollTo('#main', 150);
 }
 
 function refresh() {
@@ -238,6 +242,12 @@ function drawTweets(tweets) {
 		$('#tweet_list').html(render).removeClass('hidden');
 		$('.tweet_actions a').on('click', openTweetActionInWindow).noClickDelay();
 	}, 1);
+}
+
+function scrollTo(element, duration) {
+	$('html, body').animate({
+	     scrollTop: $(element).offset().top
+	 }, duration);
 }
 
 function getFormattedTweetContent(tweet) {
