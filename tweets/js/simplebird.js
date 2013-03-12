@@ -139,20 +139,22 @@ function openTweetActionInWindow(e) {
 
 function toggleTweetHistory(e, open) {
 	e.preventDefault();
-	
+
     var $targ = $('#main');
     var open = open === undefined ? !$targ.hasClass('menu_open') : open;
     if (open) {
-        $targ.addClass('menu_open');
-        var height = Math.min($('#tweet_history').css('height'), parseInt($('#tweet_history').css('max-height')));
-        $('section').css({
-        	'-webkit-transform': 'translateY(' + height + 'px)',
-        	'-moz-transform': 'translateY(' + height + 'px)',
-        	'-ms-transform': 'translateY(' + height + 'px)',
-        	'transform': 'translateY(' + height + 'px)'
-        });
+    	scrollTo('#main', 150);
 
-		scrollTo('#main', 150);
+    	setTimeout(function() {
+	        $targ.addClass('menu_open');
+	        var height = Math.min($('#tweet_history').css('height'), parseInt($('#tweet_history').css('max-height')));
+	        $('section').css({
+	        	'-webkit-transform': 'translateY(' + height + 'px)',
+	        	'-moz-transform': 'translateY(' + height + 'px)',
+	        	'-ms-transform': 'translateY(' + height + 'px)',
+	        	'transform': 'translateY(' + height + 'px)'
+	        });
+    	}, 150);
     }
     else {
         $targ.removeClass('menu_open');
