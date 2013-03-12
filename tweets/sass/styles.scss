@@ -212,6 +212,9 @@ nav {
 	padding: 1.5rem $gutter_width;
 	border-bottom: 1px solid #d3d3d3;
 	background: #fff;
+	border-top-left-radius: .5em;
+	border-top-right-radius: .5em;
+
 	-webkit-transform: translateZ(0);
 
 	@include transition(box-shadow .3s ease);
@@ -304,6 +307,8 @@ nav {
 section {
 	padding: $gutter_width;
 	background: #fff;
+	border-bottom-left-radius: .5em;
+	border-bottom-right-radius: .5em;
 	position: relative;
 	z-index: 1;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
