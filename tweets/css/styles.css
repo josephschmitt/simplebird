@@ -6,6 +6,14 @@
   src: url("../fonts/simplebird.eot?#iefix") format("embedded-opentype"), url("../fonts/simplebird.woff") format("woff"), url("../fonts/simplebird.ttf") format("truetype"), url("../fonts/simplebird.svg#simplebird") format("svg");
 }
 
+@font-face {
+  font-family: 'simplebird-ext';
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/simplebird-ext.eot");
+  src: url("../fonts/simplebird-ext.eot?#iefix") format("embedded-opentype"), url("../fonts/simplebird-ext.woff") format("woff"), url("../fonts/simplebird-ext.ttf") format("truetype"), url("../fonts/simplebird-ext.svg#simplebird") format("svg");
+}
+
 * {
   box-sizing: border-box;
 }
@@ -132,7 +140,7 @@ header .newtweet {
 
 nav {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   padding: 1.5rem 20px;
   border-bottom: 1px solid #d3d3d3;
 }
@@ -197,13 +205,19 @@ nav dt em {
 }
 nav #toggle_history {
   position: absolute;
-  width: 30px;
-  height: 30px;
+  width: 15px;
+  height: 15px;
   left: 50%;
-  bottom: -15px;
-  margin-left: -15px;
+  bottom: -7.5px;
+  margin-left: -7.5px;
   z-index: 2;
-  font-family: "simplebird";
+  font-family: "simplebird-ext";
+  color: #d3d3d3;
+  background: #fff;
+}
+nav #toggle_history:hover {
+  color: #d3d3d3;
+  text-decoration: none;
 }
 
 section {
@@ -220,7 +234,7 @@ section {
 }
 @media screen and (max-width: 600px) {
   section {
-    padding: 10px;
+    padding: 20px 10px;
   }
 }
 section .tweet {

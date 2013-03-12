@@ -51,6 +51,20 @@ $darken_baby_blue:		#25b2e6;
 		url('../fonts/simplebird.svg#simplebird') format('svg');
 }
 
+@font-face {
+	font: {
+		family: 'simplebird-ext';
+		weight: normal;
+		style: normal;
+	}
+
+	src:url('../fonts/simplebird-ext.eot');
+	src:url('../fonts/simplebird-ext.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/simplebird-ext.woff') format('woff'),
+		url('../fonts/simplebird-ext.ttf') format('truetype'),
+		url('../fonts/simplebird-ext.svg#simplebird') format('svg');
+}
+
 * {
 	box-sizing: border-box;
 }
@@ -194,7 +208,7 @@ header {
 
 nav {
 	position: relative;
-	z-index: 1;
+	z-index: 2;
 	padding: 1.5rem $gutter_width;
 	border-bottom: 1px solid #d3d3d3;
 
@@ -260,7 +274,7 @@ nav {
 	}
 
 	#toggle_history {
-		$size: 30px;
+		$size: 15px;
 
 		position: absolute;
 		width: $size;
@@ -269,7 +283,15 @@ nav {
 		bottom: -$size/2;
 		margin-left: -$size/2;
 		z-index: 2;
-		font-family: "simplebird"
+
+		font-family: "simplebird-ext";
+		color: #d3d3d3;
+		background: #fff;
+
+		&:hover {
+			color: #d3d3d3;
+			text-decoration: none;
+		}
 	}
 }
 
@@ -284,7 +306,7 @@ section {
 	-webkit-transform: translateY(0);
 
 	@include rounded_layout_break {
-		padding: $gutter_width/2;
+		padding: $gutter_width $gutter_width/2;
 	}
 
 	.tweet {
