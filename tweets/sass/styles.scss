@@ -9,6 +9,34 @@ $small_screen_break: 	430px;
 $baby_blue:				#94ddf8;
 $darken_baby_blue:		#25b2e6;
 
+@mixin transition($transition) {
+	-webkit-transition: $transition;
+	-moz-transition: $transition;
+	-ms-transition: $transition;
+	-o-transition: $transition;
+	transition: $transition;
+}
+
+@mixin filter($filter) {
+	-webkit-filter: $filter;
+	-moz-filter: $filter;
+	-ms-filter: $filter;
+	-o-filter: $filter;
+	filter: $filter;
+}
+
+@mixin small_screen_break {
+	 @media screen and (max-width: $small_screen_break) {
+	 	@content;
+	 }
+}
+
+@mixin rounded_layout_break {
+	@media screen and (max-width: $rounded_layout_break) {
+		@content
+	}
+}
+
 @font-face {
 	font: {
 		family: 'simplebird';
@@ -102,7 +130,7 @@ header {
 		margin: 0 auto;
 		position: relative;
 
-		@media screen and (max-width: $rounded_layout_break) {
+		@include rounded_layout_break {
 			//Work around stupid iOS box-sizing bug
 			> *:first-child {
 				margin-left: $gutter_width/2;
@@ -156,7 +184,7 @@ header {
 	max-width: $max_column_width;
 	min-width: $min_column_width;
 
-	@media screen and (max-width: $rounded_layout_break) {
+	@include rounded_layout_break {
 		border-width: 1px 0;
 		border-radius: 0;
 		max-width: 100%;
@@ -185,7 +213,7 @@ nav {
 		&#prev {
 			left: $gutter_width;
 
-			@media screen and (max-width: $rounded_layout_break) {
+			@include rounded_layout_break {
 				left: $gutter_width/2;
 			}
 		}
@@ -195,12 +223,12 @@ nav {
 			text-indent: 0.1em;
 			padding-right: 0;
 
-			@media screen and (max-width: $rounded_layout_break) {
+			@include rounded_layout_break {
 				right: $gutter_width/2;
 			}
 		}
 
-		@media screen and (max-width: $small_screen_break) {
+		@include small_screen_break {
 			font-size: 1em;
 		}
 	}
@@ -213,7 +241,7 @@ nav {
 		position: relative;
 		top: 0.1em;
 
-		@media screen and (max-width: $small_screen_break) {
+		@include small_screen_break {
 			font-size: 1.3em;
 		}
 
@@ -225,7 +253,7 @@ nav {
 			}
 			color: #aaa;
 
-			@media screen and (max-width: $small_screen_break) {
+			@include small_screen_break {
 				font-size: 0.7em;
 			}
 		}
@@ -252,10 +280,10 @@ section {
 	position: relative;
 	z-index: 1;
 
-	-webkit-transition: -webkit-transform .2s ease;
+	@include transition(-webkit-transform .2s ease);
 	-webkit-transform: translateY(0);
 
-	@media screen and (max-width: $rounded_layout_break) {
+	@include rounded_layout_break {
 		padding: $gutter_width/2;
 	}
 
@@ -278,7 +306,7 @@ section {
 			vertical-align: top;
 			margin-right: $gutter_width/2;
 
-			@media screen and (max-width: $rounded_layout_break) {
+			@include rounded_layout_break {
 				width: 40px;
 				height: 40px;
 				margin-right: $gutter_width/2;
@@ -475,7 +503,7 @@ section {
 
 .menu_open {
 	section {
-		-webkit-transition: -webkit-transform .2s ease;
+		@include transition(-webkit-transform .2s ease);
 		-webkit-transform: translateY($history_height);
 		border-top: 1px solid #d3d3d3;
 	}

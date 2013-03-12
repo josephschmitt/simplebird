@@ -211,7 +211,11 @@ section {
   background: #fff;
   position: relative;
   z-index: 1;
-  -webkit-transition: -webkit-transform .2s ease;
+  -webkit-transition: -webkit-transform 0.2s ease;
+  -moz-transition: -webkit-transform 0.2s ease;
+  -ms-transition: -webkit-transform 0.2s ease;
+  -o-transition: -webkit-transform 0.2s ease;
+  transition: -webkit-transform 0.2s ease;
   -webkit-transform: translateY(0);
 }
 @media screen and (max-width: 600px) {
@@ -395,7 +399,11 @@ section .tweet .tweet_actions a:hover {
 }
 
 .menu_open section {
-  -webkit-transition: -webkit-transform .2s ease;
+  -webkit-transition: -webkit-transform 0.2s ease;
+  -moz-transition: -webkit-transform 0.2s ease;
+  -ms-transition: -webkit-transform 0.2s ease;
+  -o-transition: -webkit-transform 0.2s ease;
+  transition: -webkit-transform 0.2s ease;
   -webkit-transform: translateY(18em);
   border-top: 1px solid #d3d3d3;
 }
