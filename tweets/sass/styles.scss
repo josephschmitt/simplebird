@@ -1,9 +1,9 @@
 // Variables
 //----------------------------------------------//
-$gutter_width: 			2rem;
-$max_column_width: 		56rem;
-$min_column_width:		32rem;
-$history_height:		15em;
+$gutter_width: 			20px;
+$max_column_width: 		560px;
+$min_column_width:		320px;
+$history_height:		18em;
 $rounded_layout_break:	$max_column_width + $gutter_width * 2;
 $small_screen_break: 	430px;
 $baby_blue:				#94ddf8;
@@ -230,13 +230,30 @@ nav {
 			}
 		}
 	}
+
+	#toggle_history {
+		$size: 30px;
+
+		position: absolute;
+		width: $size;
+		height: $size;
+		left: 50%;
+		bottom: -$size/2;
+		margin-left: -$size/2;
+		z-index: 2;
+		font-family: "simplebird"
+	}
 }
+
 
 section {
 	padding: $gutter_width;
 	background: #fff;
 	position: relative;
 	z-index: 1;
+
+	-webkit-transition: -webkit-transform .2s ease;
+	-webkit-transform: translateY(0);
 
 	@media screen and (max-width: $rounded_layout_break) {
 		padding: $gutter_width/2;

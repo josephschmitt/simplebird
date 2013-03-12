@@ -104,6 +104,7 @@ function init() {
 	setTimeout(function() {
 		//Render history
 		$('#tweet_history').html(tmpl('tmpl_history', Grailbird));
+
 		drawTweetHistory();
 		refreshActiveHistory();
 	}, 10);
@@ -117,6 +118,29 @@ function prev() {
 function next() {
 	$('#next').off('click');
 	loadPage(Math.max(0, Grailbird.cur_page - 1));
+}
+
+function openTweetActionInWindow(e) {
+	e.preventDefault();
+	window.open(e.target.getAttribute('href'), '', 'width=520,height=360,menubar=no,toolbar=no');
+}
+
+function toggleTweetHistory(e, open) {
+    var $targ = $('#main');
+    var open = open === undefined ? !$targ.hasClass('menu_open') : open;
+    if (open) {
+        $targ.addClass('menu_open');
+        var height = Math.min($('#tweet_history').css('height'), parseInt($('#tweet_history').css('max-height')));
+        $('section').css({
+        	'-webkit-transform': 'translateY(' + height + 'px)',
+        	'-moz-transform': 'translateY(' + height + 'px)',
+        	'-ms-transform': 'translateY(' + height + 'px)',
+        	'transform': 'translateY(' + height + 'px)'
+        })
+    }
+    else {
+        $targ.removeClass('menu_open');
+    }
 }
 
 function loadPage(page) {
@@ -135,6 +159,7 @@ function refresh() {
 
 	$('#prev').on('click', prev);
 	$('#next').on('click', next);
+	$('#toggle_history').on('click', toggleTweetHistory);
 
 	refreshActiveHistory();
 
@@ -163,11 +188,6 @@ function refreshActiveHistory() {
 	$('#tweet_history .bar[data-var-name=' + (Grailbird.tweet_index[Grailbird.cur_page].var_name) + ']').addClass('active')
 		.parents('.tweet_year').addClass('active');
 }
-
-function openTweetActionInWindow(e) {
-		e.preventDefault();
-		window.open(e.target.getAttribute('href'), '', 'width=520,height=360,menubar=no,toolbar=no');
-	}
 
 function loadHistoryFromVarName(var_name) {
 	if (!var_name) {return;}

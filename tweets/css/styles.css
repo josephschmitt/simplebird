@@ -74,17 +74,17 @@ header {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
 header hgroup {
-  max-width: 56rem;
-  min-width: 32rem;
+  max-width: 560px;
+  min-width: 320px;
   margin: 0 auto;
   position: relative;
 }
-@media screen and (max-width: 60rem) {
+@media screen and (max-width: 600px) {
   header hgroup > *:first-child {
-    margin-left: 1rem;
+    margin-left: 10px;
   }
   header hgroup > *:last-child {
-    margin-right: 1rem;
+    margin-right: 10px;
   }
 }
 header a {
@@ -118,10 +118,10 @@ header .newtweet {
   font-size: 1.5rem;
   position: relative;
   overflow: hidden;
-  max-width: 56rem;
-  min-width: 32rem;
+  max-width: 560px;
+  min-width: 320px;
 }
-@media screen and (max-width: 60rem) {
+@media screen and (max-width: 600px) {
   #main {
     border-width: 1px 0;
     border-radius: 0;
@@ -133,7 +133,7 @@ header .newtweet {
 nav {
   position: relative;
   z-index: 1;
-  padding: 1.5rem 2rem;
+  padding: 1.5rem 20px;
   border-bottom: 1px solid #d3d3d3;
 }
 nav button {
@@ -149,21 +149,21 @@ nav button {
   cursor: pointer;
 }
 nav button#prev {
-  left: 2rem;
+  left: 20px;
 }
-@media screen and (max-width: 60rem) {
+@media screen and (max-width: 600px) {
   nav button#prev {
-    left: 1rem;
+    left: 10px;
   }
 }
 nav button#next {
-  right: 2rem;
+  right: 20px;
   text-indent: 0.1em;
   padding-right: 0;
 }
-@media screen and (max-width: 60rem) {
+@media screen and (max-width: 600px) {
   nav button#next {
-    right: 1rem;
+    right: 10px;
   }
 }
 @media screen and (max-width: 430px) {
@@ -195,16 +195,28 @@ nav dt em {
     font-size: 0.7em;
   }
 }
+nav #toggle_history {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: 50%;
+  bottom: -15px;
+  margin-left: -15px;
+  z-index: 2;
+  font-family: "simplebird";
+}
 
 section {
-  padding: 2rem;
+  padding: 20px;
   background: #fff;
   position: relative;
   z-index: 1;
+  -webkit-transition: -webkit-transform .2s ease;
+  -webkit-transform: translateY(0);
 }
-@media screen and (max-width: 60rem) {
+@media screen and (max-width: 600px) {
   section {
-    padding: 1rem;
+    padding: 10px;
   }
 }
 section .tweet {
@@ -223,13 +235,13 @@ section .tweet .avatar {
   border-radius: 0.5rem;
   display: table-cell;
   vertical-align: top;
-  margin-right: 1rem;
+  margin-right: 10px;
 }
-@media screen and (max-width: 60rem) {
+@media screen and (max-width: 600px) {
   section .tweet .avatar {
     width: 40px;
     height: 40px;
-    margin-right: 1rem;
+    margin-right: 10px;
   }
 }
 section .tweet .tweet_body {
@@ -330,9 +342,9 @@ section .tweet .tweet_actions a:hover {
 
 #tweet_history {
   position: absolute;
-  padding: 2rem;
+  padding: 20px;
   background: #fff;
-  max-height: 15em;
+  max-height: 18em;
   overflow-y: auto;
 }
 #tweet_history, #tweet_history ol {
@@ -384,7 +396,7 @@ section .tweet .tweet_actions a:hover {
 
 .menu_open section {
   -webkit-transition: -webkit-transform .2s ease;
-  -webkit-transform: translateY(15em);
+  -webkit-transform: translateY(18em);
   border-top: 1px solid #d3d3d3;
 }
 .menu_open section, .menu_open nav {
