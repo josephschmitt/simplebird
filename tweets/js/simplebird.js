@@ -143,9 +143,7 @@ function toggleTweetHistory(e, open) {
     var $targ = $('#main');
     var open = open === undefined ? !$targ.hasClass('menu_open') : open;
     if (open) {
-    	scrollTo('#main', 150);
-
-    	setTimeout(function() {
+    	scrollTo('#main', 150, function() {
 	        $targ.addClass('menu_open');
 	        
 	        var height = Math.min(parseInt($('#tweet_history').css('height')), parseInt($('#tweet_history').css('max-height')));
@@ -155,7 +153,7 @@ function toggleTweetHistory(e, open) {
 	        	'-ms-transform': 'translateY(' + height + 'px)',
 	        	'transform': 'translateY(' + height + 'px)'
 	        });
-    	}, 150);
+    	});
     }
     else {
     	$('.menu_open section').css({
@@ -256,10 +254,10 @@ function drawTweets(tweets) {
 	}, 1);
 }
 
-function scrollTo(element, duration) {
+function scrollTo(element, duration, complete) {
 	$('html, body').animate({
 	     scrollTop: $(element).offset().top
-	 }, duration);
+	 }, duration, 'swing', complete);
 }
 
 function getFormattedTweetContent(tweet) {
