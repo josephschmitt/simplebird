@@ -95,7 +95,7 @@ function init() {
 
 	//Render header
 	$('header').html(tmpl('tmpl_header', Grailbird.user_details));
-	$('.newtweet').click(openTweetActionInWindow);
+	$('.newtweet').on('click', openTweetActionInWindow).noClickDelay();
 	
 	//Render tweets
 	refresh();
@@ -136,7 +136,7 @@ function toggleTweetHistory(e, open) {
         	'-moz-transform': 'translateY(' + height + 'px)',
         	'-ms-transform': 'translateY(' + height + 'px)',
         	'transform': 'translateY(' + height + 'px)'
-        })
+        });
     }
     else {
         $targ.removeClass('menu_open');
@@ -157,9 +157,9 @@ function refresh() {
 	//Render nav
 	$('nav').html(tmpl('tmpl_nav', Grailbird));
 
-	$('#prev').on('click', prev);
-	$('#next').on('click', next);
-	$('#toggle_history').on('click', toggleTweetHistory);
+	$('#prev').on('click', prev).noClickDelay();
+	$('#next').on('click', next).noClickDelay();
+	$('#toggle_history').on('click', toggleTweetHistory).noClickDelay();
 
 	refreshActiveHistory();
 
@@ -175,10 +175,10 @@ function drawTweetHistory() {
 		$(bar).height((100 - (val * 100)) + '%');
 	});
 
-	$('#tweet_history .bar a').click(function(e) {
+	$('#tweet_history .bar a').on('click', function(e) {
 		var var_name = $(e.target).parents('.bar').data('var-name');
 		loadHistoryFromVarName(var_name);
-	});
+	}).noClickDelay();
 }
 
 function refreshActiveHistory() {
@@ -236,7 +236,7 @@ function drawTweets(tweets) {
 	//Defer drawing to next paint cycle
 	setTimeout(function() {
 		$('#tweet_list').html(render).removeClass('hidden');
-		$('.tweet_actions a').click(openTweetActionInWindow);
+		$('.tweet_actions a').on('click', openTweetActionInWindow).noClickDelay();
 	}, 1);
 }
 

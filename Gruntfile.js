@@ -30,7 +30,7 @@ module.exports = function(grunt) {
 			},
 			scripts: {
 				files: {
-					'tweets/js/simplebird.min.js': ['tweets/js/simplebird.js']
+					'tweets/js/simplebird.min.js': ['tweets/js/noClickDelay.js', 'tweets/js/simplebird.js']
 				}
 			}
 		},
