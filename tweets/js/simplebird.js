@@ -95,7 +95,7 @@ function init() {
 
 	//Render header
 	$('header').html(tmpl('tmpl_header', Grailbird.user_details));
-	$('.newtweet').on('click', openTweetActionInWindow).noClickDelay();
+	$('.newtweet').on('click', openTweetActionInWindow);
 	
 	//Render tweets
 	refresh();
@@ -173,9 +173,9 @@ function refresh() {
 	//Render nav
 	$('nav').html(tmpl('tmpl_nav', Grailbird));
 
-	$('#prev').on('click', prev).noClickDelay();
-	$('#next').on('click', next).noClickDelay();
-	$('#toggle_history').on('click', toggleTweetHistory).noClickDelay();
+	$('#prev').on('click', prev);
+	$('#next').on('click', next);
+	$('#toggle_history').on('click', toggleTweetHistory);
 
 	refreshActiveHistory();
 
@@ -252,7 +252,7 @@ function drawTweets(tweets) {
 	//Defer drawing to next paint cycle
 	setTimeout(function() {
 		$('#tweet_list').html(render).removeClass('hidden');
-		$('.tweet_actions a').on('click', openTweetActionInWindow).noClickDelay();
+		$('.tweet_actions a').on('click', openTweetActionInWindow);
 	}, 1);
 }
 
