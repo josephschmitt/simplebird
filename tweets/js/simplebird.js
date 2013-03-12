@@ -158,6 +158,13 @@ function toggleTweetHistory(e, open) {
     	}, 150);
     }
     else {
+    	$('.menu_open section').css({
+        	'-webkit-transform': '',
+        	'-moz-transform': '',
+        	'-ms-transform': '',
+        	'transform': ''
+        });
+
         $targ.removeClass('menu_open');
     }
 }
