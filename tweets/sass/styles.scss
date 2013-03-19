@@ -51,20 +51,6 @@ $darken_baby_blue:		#25b2e6;
 		url('../fonts/simplebird.svg#simplebird') format('svg');
 }
 
-@font-face {
-	font: {
-		family: 'simplebird-ext';
-		weight: normal;
-		style: normal;
-	}
-
-	src:url('../fonts/simplebird-ext.eot');
-	src:url('../fonts/simplebird-ext.eot?#iefix') format('embedded-opentype'),
-		url('../fonts/simplebird-ext.woff') format('woff'),
-		url('../fonts/simplebird-ext.ttf') format('truetype'),
-		url('../fonts/simplebird-ext.svg#simplebird') format('svg');
-}
-
 * {
 	box-sizing: border-box;
 }
@@ -281,7 +267,7 @@ nav {
 	}
 
 	#toggle_history {
-		$size: 15px;
+		$size: 30px;
 
 		position: absolute;
 		width: $size;
@@ -291,13 +277,18 @@ nav {
 		margin-left: -$size/2;
 		z-index: 2;
 
-		font-family: "simplebird-ext";
-		color: #d3d3d3;
+		font: {
+			family: "simplebird";
+			size: 1.4em;
+		}
+		text-align: center;
+		color: #a4a4a4;
+		line-height: 1.4em;
 		background: #fff;
 		-webkit-tap-highlight-color: rgba(0,0,0,0);
 
 		&:hover {
-			color: #d3d3d3;
+			color: #666;
 			text-decoration: none;
 		}
 	}
