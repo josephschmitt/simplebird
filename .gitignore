@@ -1,0 +1,19 @@
+# NPM Modules #
+###############
+node_modules
+
+# User tweet data #
+###################
+tweets/data
+tweets/*_keys.yaml
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
