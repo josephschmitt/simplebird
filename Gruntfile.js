@@ -19,7 +19,7 @@ module.exports = function(grunt) {
 		concat: {
 			lib: {
 				files: {
-					'tweets/js/lib.js': ['tweets/js/jquery*.js', 'tweets/js/hogan*.js']
+					'tweets/js/lib.js': ['tweets/js/jquery*.js', 'tweets/js/hogan*.js', 'tweets/js/history.min.js']
 				}
 			}
 		},
@@ -30,7 +30,7 @@ module.exports = function(grunt) {
 			},
 			scripts: {
 				files: {
-					'tweets/js/simplebird.min.js': ['tweets/js/noClickDelay.js', 'tweets/js/simplebird.js']
+					'tweets/js/simplebird.min.js': ['tweets/js/simplebird.js']
 				}
 			}
 		},
@@ -54,5 +54,5 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	// Default task(s).
-	grunt.registerTask('default', ['sass', 'uglify', 'watch']);
+	grunt.registerTask('default', ['sass', 'concat', 'uglify', 'watch']);
 };

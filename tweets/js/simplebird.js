@@ -42,6 +42,7 @@ function init() {
 				var months = $.grep(Grailbird.tweet_index, function(data, index) {
 					max_tweet_count = Math.max(max_tweet_count, data.tweet_count);
 					data.calendar_month = CalendarMonths[data.month - 1];
+					data.url = data.var_name.split('tweets_').join('');
 					return data.year == cur_year;
 				});
 				months.reverse();
@@ -96,9 +97,9 @@ function init() {
 	//Render header
 	$('header').html(tmpl('tmpl_header', Grailbird.user_details));
 	$('.newtweet').on('click', openTweetActionInWindow);
-	
+
 	//Render tweets
-	refresh();
+	loadTweetsAtCurrentUrl();
 
 	//Defer menu rendering until after tweets have rendered
 	setTimeout(function() {
@@ -108,6 +109,21 @@ function init() {
 		drawTweetHistory();
 		refreshActiveHistory();
 	}, 10);
+
+	// Listen for url change events
+    History.Adapter.bind(window, 'statechange', loadTweetsAtCurrentUrl);
+}
+
+function loadTweetsAtCurrentUrl() {
+	var state = History.getState();
+	var date = state.hash.split('?date=')[1];
+
+	if (date) {
+		loadHistoryFromVarName('tweets_'+date);
+	}
+	else {
+		refresh();
+	}
 }
 
 function prev() {
@@ -190,8 +206,10 @@ function drawTweetHistory() {
 	});
 
 	$('#tweet_history .bar a').on('click', function(e) {
-		var var_name = $(e.target).parents('.bar').data('var-name');
-		loadHistoryFromVarName(var_name);
+		e.preventDefault();
+
+		var href = $(e.target).attr('href') || $(e.target).parents('a').attr('href');
+		History.pushState(null, null, href);
 	});
 }
 
