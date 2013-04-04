@@ -116,7 +116,8 @@ function init() {
 
 function loadTweetsAtCurrentUrl() {
 	var state = History.getState();
-	var date = state.hash.split('?date=')[1];
+	var dateArr = state.hash.split('?date=');
+	var date = dateArr.length > 1 ? dateArr[1].split('&')[0] : null;
 
 	if (date) {
 		loadHistoryFromVarName('tweets_'+date);
@@ -224,7 +225,7 @@ function refreshActiveHistory() {
 function loadHistoryFromVarName(var_name) {
 	if (!var_name) {return;}
 	
-	var index;
+	var index = 0;
 	$.each(Grailbird.tweet_index, function(i, data) {
 		if (!index && data.var_name == var_name) {
 			index = i;
