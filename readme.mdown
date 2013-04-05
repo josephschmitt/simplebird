@@ -14,7 +14,12 @@ Config.baseUrl          //defaults to "/tweets". Set this to the directory of yo
 
 2. Add absolute paths in `tweets/index.html` pointing to the CSS and JavaScript files on your server. If you just took the `tweets/` directory and placed it in your server root, the paths would be `/tweets/css/style.css`, `/tweets/js/lib.js`, and `/tweets/js/simplebird.min.js`. You might be able to skip this, but if you do, urls ending in a trailing slash will probably break.
 
-3. Enable support for your new URLs on your server. If you're running Apache, you can do this by setting up a RewriteRule in your `.htaccess` file to redirect the deep-linked pages back to index.html.
+3. Enable support for your new URLs on your server. If you're running Apache, you can do this by setting up a RewriteRule in your `.htaccess` file to redirect the deep-linked pages back to index.html. Here's the one I have on my server:
+
+    <pre><code># Redirect deep linked tweets
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^tweets/(.*)/?$ tweets/index.html [L]</code></pre>
 
 # Building the project
 The source files for this project depend on SASS for StyleSheet sanity and UglifyJS to keep the requests and file size small. If you don't want to use either of them, just point the `<script>` tags in `tweets/index.html` to the CSS and non-min JS equivalents. However, if you'd like to make use of SASS and Uglify and you have [NodeJS](http://nodejs.org/) installed, you can do so via the included [Grunt](http://gruntjs.com) tasks.
