@@ -44,7 +44,10 @@ function init() {
 				var months = $.grep(Grailbird.tweet_index, function(data, index) {
 					max_tweet_count = Math.max(max_tweet_count, data.tweet_count);
 					data.calendar_month = CalendarMonths[data.month - 1];
-					data.url = data.var_name.split('tweets_').join('');
+
+					var url = data.var_name.split('tweets_').join('');
+					data.url = Config.useCleanUrl ? Config.baseUrl + url : '?data=' + url;
+
 					return data.year == cur_year;
 				});
 				months.reverse();
@@ -309,7 +312,7 @@ function getTweetVarFromUrl(url) {
 		date = url.split(Config.baseUrl)[1].split('/').join('');
 	}
 	
-	return date ? 'tweets_'+date : null;
+	return date ? 'tweets_' + date : null;
 }
 
 function getUrlFromTweetVar(var_name) {
