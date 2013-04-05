@@ -207,11 +207,18 @@ function refresh() {
 	$('#toggle_history').on('click', toggleTweetHistory);
 
 	refreshActiveHistory();
-
 	loadTweets(tweet_index[Grailbird.cur_page]);
 
 	if (!hasUrlChanged) {
-		History.pushState(null, null, getUrlFromTweetVar(tweet_index[Grailbird.cur_page].var_name));
+		var url = getUrlFromTweetVar(tweet_index[Grailbird.cur_page].var_name);
+
+		//If simply switching from ?date= format to clean format, replace state instead of pushing
+		if (Config.useCleanUrl && History.getState().hash.indexOf('date=') > -1) {
+			History.replaceState(null, null, url);
+		}
+		else {
+			History.pushState(null, null, url);
+		}
 	}
 
 	hasUrlChanged = false;
@@ -286,13 +293,27 @@ function scrollTo(element, duration, complete) {
 
 function getTweetVarFromUrl(url) {
 	url = url || History.getState().hash;
-	var dateArr = url.split('?date=');
-	var date = dateArr.length > 1 ? dateArr[1].split('&')[0] : null;
+	var date;
+
+	//Using date?= format
+	if (url.split('?date=').length > 1) {
+		date = url.split('?date=')[1].split('&')[0]
+	}
+	//Using clean URL format
+	else if (Config.useCleanUrl && url.split(Config.baseUrl).length > 1) {
+		date = url.split(Config.baseUrl)[1].split('/').join('');
+	}
+	
 	return date ? 'tweets_'+date : null;
 }
 
 function getUrlFromTweetVar(var_name) {
-	return '?date=' + var_name.split('tweets_').join('');
+	if (Config.useCleanUrl) {
+		return Config.baseUrl + '/' + var_name.split('tweets_').join('');
+	}
+	else {
+		return '?date=' + var_name.split('tweets_').join('');
+	}
 }
 
 function getFormattedTweetContent(tweet) {
