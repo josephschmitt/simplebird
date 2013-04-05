@@ -4,6 +4,14 @@ Simplebird is small, fast, simple implementation of Grailbird Twitter archive. I
 # Installation
 Put the `tweets/` directory on your web server. Copy and paste the `data/` directory from your downloaded Tweet archive inside the `tweets/` folder. Open index.html.
 
+# Using clean urls
+Deep linking was introduced into Simplebird in version 0.3, using the `?date=` query parameter. However, in version 0.3.3, clean url support was added, turning urls such as `tweets/date=2012_03` into `tweets/2012_03`. To get this working, you'll have to open `tweets/index.html` and in the script block near the bottom of the page, set up the following Config variables:
+
+<pre><code>Config.useCleanUrl      //defaults to false. Set this to true to enable clean url support
+Config.baseUrl          //defaults to "/tweets". Set this to the directory of your Simplebird installation on your server, relative to the root URL.</code></pre>
+
+Finally, you'll have to enable support for your new URLs on your server. If you're running Apache, you can do this by setting up a RewriteRule in your `.htaccess` file to redirect the deep-linked pages back to the index.html file.
+
 # Building the project
 The source files for this project depend on SASS for StyleSheet sanity and UglifyJS to keep the requests and file size small. If you don't want to use either of them, just point the `<script>` tags in `tweets/index.html` to the CSS and non-min JS equivalents. However, if you'd like to make use of SASS and Uglify and you have [NodeJS](http://nodejs.org/) installed, you can do so via the included [Grunt](http://gruntjs.com) tasks.
 
@@ -14,8 +22,14 @@ Once you have the repo cloned, run the following command in your terminal at the
 
  Once they've been installed, you can run one of three commands: 
 
+ `grunt`
+ This will run all the below commands in order.
+
  `grunt sass` 
  This will compile the SASS files.
+
+ `grunt concat`
+ This will concatenate the pre-minified JavaScript library files.
 
  `grunt uglify` 
  This will compile the JavaScript files.
