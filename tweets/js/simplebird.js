@@ -2,11 +2,12 @@ var Grailbird = {};
 var Templates = {};
 var CalendarMonths = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var hasUrlChanged = false;
+var baseFolder = (Config.useCleanUrl ? Config.baseUrl + '/' : '');
 
 $.when(
-	$.getScript('data/js/payload_details.js'),
-	$.getScript('data/js/user_details.js'),
-	$.getScript('data/js/tweet_index.js')
+	$.getScript(baseFolder + 'data/js/payload_details.js'),
+	$.getScript(baseFolder + 'data/js/user_details.js'),
+	$.getScript(baseFolder + 'data/js/tweet_index.js')
 ).then(init);
 
 function tmpl(name, data) {
@@ -253,7 +254,7 @@ function loadTweets(tweet_data) {
 		drawTweets(tweets);
 	}
 	else {
-		$.getScript(tweet_data.file_name, function() {
+		$.getScript(baseFolder + tweet_data.file_name, function() {
 			drawTweets(Grailbird.data[tweet_data.var_name]);
 		});
 	}
