@@ -1,6 +1,7 @@
 var Grailbird = {};
 var Templates = {};
 var CalendarMonths = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var hasUrlChanged = false;
 
 $.when(
 	$.getScript('data/js/payload_details.js'),
@@ -99,7 +100,15 @@ function init() {
 	$('.newtweet').on('click', openTweetActionInWindow);
 
 	//Render tweets
-	loadTweetsAtCurrentUrl();
+	var url_var_name = getTweetVarFromUrl();
+	//If there's a deep link URL, load that
+	if (url_var_name) {
+		loadHistoryFromVarName(url_var_name);
+	}
+	//Otherwise load the first page of tweets
+	else {
+		refresh();
+	}
 
 	//Defer menu rendering until after tweets have rendered
 	setTimeout(function() {
@@ -111,20 +120,12 @@ function init() {
 	}, 10);
 
 	// Listen for url change events
-    History.Adapter.bind(window, 'statechange', loadTweetsAtCurrentUrl);
+    History.Adapter.bind(window, 'statechange', onUrlChange);
 }
 
-function loadTweetsAtCurrentUrl() {
-	var state = History.getState();
-	var dateArr = state.hash.split('?date=');
-	var date = dateArr.length > 1 ? dateArr[1].split('&')[0] : null;
-
-	if (date) {
-		loadHistoryFromVarName('tweets_'+date);
-	}
-	else {
-		refresh();
-	}
+function onUrlChange() {
+	hasUrlChanged = true;
+	loadHistoryFromVarName(getTweetVarFromUrl());
 }
 
 function prev() {
@@ -147,6 +148,19 @@ function loadPage(page) {
 		Grailbird.cur_page = page;
 		refresh();
 	}, 150);
+}
+
+function loadHistoryFromVarName(var_name) {
+	if (!var_name) {return;}
+	
+	var index = 0;
+	$.each(Grailbird.tweet_index, function(i, data) {
+		if (!index && data.var_name == var_name) {
+			index = i;
+		}
+	});
+
+	loadPage(index);
 }
 
 function openTweetActionInWindow(e) {
@@ -194,9 +208,13 @@ function refresh() {
 
 	refreshActiveHistory();
 
-	loadTweets(tweet_index[Grailbird.cur_page], function() {
+	loadTweets(tweet_index[Grailbird.cur_page]);
 
-	});
+	if (!hasUrlChanged) {
+		History.pushState(null, null, getUrlFromTweetVar(tweet_index[Grailbird.cur_page].var_name));
+	}
+
+	hasUrlChanged = false;
 }
 
 function drawTweetHistory() {
@@ -210,7 +228,7 @@ function drawTweetHistory() {
 		e.preventDefault();
 
 		var href = $(e.target).attr('href') || $(e.target).parents('a').attr('href');
-		History.pushState(null, null, href);
+		loadHistoryFromVarName(getTweetVarFromUrl(href));
 	});
 }
 
@@ -220,19 +238,6 @@ function refreshActiveHistory() {
 		.parents('.tweet_year').removeClass('active');
 	$('#tweet_history .bar[data-var-name=' + (Grailbird.tweet_index[Grailbird.cur_page].var_name) + ']').addClass('active')
 		.parents('.tweet_year').addClass('active');
-}
-
-function loadHistoryFromVarName(var_name) {
-	if (!var_name) {return;}
-	
-	var index = 0;
-	$.each(Grailbird.tweet_index, function(i, data) {
-		if (!index && data.var_name == var_name) {
-			index = i;
-		}
-	});
-
-	loadPage(index);
 }
 
 function loadTweets(tweet_data) {
@@ -277,6 +282,17 @@ function scrollTo(element, duration, complete) {
 	$('html, body').animate({
 	     scrollTop: $(element).offset().top
 	 }, duration, 'swing', complete);
+}
+
+function getTweetVarFromUrl(url) {
+	url = url || History.getState().hash;
+	var dateArr = url.split('?date=');
+	var date = dateArr.length > 1 ? dateArr[1].split('&')[0] : null;
+	return date ? 'tweets_'+date : null;
+}
+
+function getUrlFromTweetVar(var_name) {
+	return '?date=' + var_name.split('tweets_').join('');
 }
 
 function getFormattedTweetContent(tweet) {
