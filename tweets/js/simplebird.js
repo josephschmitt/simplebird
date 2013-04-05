@@ -209,9 +209,13 @@ function refresh() {
 
 	refreshActiveHistory();
 	loadTweets(tweet_index[Grailbird.cur_page]);
+	updateUrl();
+}
 
+function updateUrl() {
 	if (!hasUrlChanged) {
-		var url = getUrlFromTweetVar(tweet_index[Grailbird.cur_page].var_name);
+		var var_name = Grailbird.cur_page !== 0 ? tweet_index[Grailbird.cur_page].var_name : '';
+		var url = getUrlFromTweetVar(var_name);
 
 		//If simply switching from ?date= format to clean format, replace state instead of pushing
 		if (Config.useCleanUrl && History.getState().hash.indexOf('date=') > -1) {
