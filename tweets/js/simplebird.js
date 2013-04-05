@@ -99,6 +99,11 @@ function init() {
 		}
 	};
 
+	//Set page title
+	var start_month = CalendarMonths[Grailbird.tweet_index[Grailbird.tweet_index.length - 1].month - 1] + ' ' + Grailbird.tweet_index[Grailbird.tweet_index.length - 1].year;
+	var end_month = CalendarMonths[Grailbird.tweet_index[0].month - 1] + ' ' + Grailbird.tweet_index[0].year;
+	document.title = "Tweets for " + Grailbird.user_details.full_name + " (@" + Grailbird.user_details.screen_name + "), " + start_month + '—' + end_month;
+
 	//Render header
 	$('header').html(tmpl('tmpl_header', Grailbird.user_details));
 	$('.newtweet').on('click', openTweetActionInWindow);
