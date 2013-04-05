@@ -46,7 +46,7 @@ function init() {
 					data.calendar_month = CalendarMonths[data.month - 1];
 
 					var url = data.var_name.split('tweets_').join('');
-					data.url = Config.useCleanUrl ? Config.baseUrl + url : '?data=' + url;
+					data.url = Config.useCleanUrl ? Config.baseUrl + '/' + url : '?data=' + url;
 
 					return data.year == cur_year;
 				});
