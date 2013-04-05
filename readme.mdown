@@ -5,7 +5,7 @@ Simplebird is small, fast, simple implementation of Grailbird Twitter archive. I
 Put the `tweets/` directory on your web server. Copy and paste the `data/` directory from your downloaded Tweet archive inside the `tweets/` folder. Open index.html.
 
 # Using clean urls
-Deep linking was introduced into Simplebird in version 0.3, using the `?date=` query parameter. However, in version 0.3.3, clean url support was added, turning urls such as `tweets/date=2012_03` into `tweets/2012_03`. To get this working, you'll have to go through a couple extra steps:
+Deep linking was introduced into Simplebird in version 0.3, using the `?date=` query parameter. However, in version 0.3.3, clean url support was added, turning urls such as `tweets/?date=2012_03` into `tweets/2012_03`. To get this working, you'll have to go through a couple extra steps:
 
 1. Set up the following Config variables in `tweets/index.html` at the script block near the bottom of the page:
 
