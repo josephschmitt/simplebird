@@ -5,12 +5,16 @@ Simplebird is small, fast, simple implementation of Grailbird Twitter archive. I
 Put the `tweets/` directory on your web server. Copy and paste the `data/` directory from your downloaded Tweet archive inside the `tweets/` folder. Open index.html.
 
 # Using clean urls
-Deep linking was introduced into Simplebird in version 0.3, using the `?date=` query parameter. However, in version 0.3.3, clean url support was added, turning urls such as `tweets/date=2012_03` into `tweets/2012_03`. To get this working, you'll have to open `tweets/index.html` and in the script block near the bottom of the page, set up the following Config variables:
+Deep linking was introduced into Simplebird in version 0.3, using the `?date=` query parameter. However, in version 0.3.3, clean url support was added, turning urls such as `tweets/date=2012_03` into `tweets/2012_03`. To get this working, you'll have to go through a couple extra steps:
 
-<pre><code>Config.useCleanUrl      //defaults to false. Set this to true to enable clean url support
+1. Set up the following Config variables in `tweets/index.html` at the script block near the bottom of the page:
+
+    <pre><code>Config.useCleanUrl      //defaults to false. Set this to true to enable clean url support
 Config.baseUrl          //defaults to "/tweets". Set this to the directory of your Simplebird installation on your server, relative to the root URL.</code></pre>
 
-Finally, you'll have to enable support for your new URLs on your server. If you're running Apache, you can do this by setting up a RewriteRule in your `.htaccess` file to redirect the deep-linked pages back to the index.html file.
+2. Add absolute paths in `tweets/index.html` pointing to the CSS and JavaScript files on your server. If you just took the `tweets/` directory and placed it in your server root, the paths would be `/tweets/css/style.css`, `/tweets/js/lib.js`, and `/tweets/js/simplebird.min.js`. You might be able to skip this, but if you do, urls ending in a trailing slash will probably break.
+
+3. Enable support for your new URLs on your server. If you're running Apache, you can do this by setting up a RewriteRule in your `.htaccess` file to redirect the deep-linked pages back to index.html.
 
 # Building the project
 The source files for this project depend on SASS for StyleSheet sanity and UglifyJS to keep the requests and file size small. If you don't want to use either of them, just point the `<script>` tags in `tweets/index.html` to the CSS and non-min JS equivalents. However, if you'd like to make use of SASS and Uglify and you have [NodeJS](http://nodejs.org/) installed, you can do so via the included [Grunt](http://gruntjs.com) tasks.
