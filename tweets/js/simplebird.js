@@ -229,8 +229,11 @@ function updateUrl() {
 		if (Config.useCleanUrl && History.getState().hash.indexOf('date=') > -1) {
 			History.replaceState(null, null, url);
 		}
-		else {
+		else if (var_name) {
 			History.pushState(null, null, url);
+		}
+		else {
+			History.replaceState(null, null, Config.baseUrl);
 		}
 	}
 
