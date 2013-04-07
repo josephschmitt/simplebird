@@ -4,6 +4,40 @@ var CalendarMonths = ["January", "February", "March", "April", "May", "June", "J
 var hasUrlChanged = false;
 var baseFolder = (Config.useCleanUrl ? Config.baseUrl + '/' : '');
 
+// Set up search index web worker
+var IndexWorker = new Worker(Config.baseUrl + '/js/simplebird.index.js');
+// Set up listener for log events
+IndexWorker.addEventListener('message', function(e) {
+	if (e.data.msg == 'log') {
+		console.log('Worker Log:', e.data.options);
+	}
+});
+
+// Set up search index worker as a jQuery Promise
+$.SearchIndex = function(args) {
+	var def = $.Deferred(function(dfd) {
+        IndexWorker.addEventListener('message', function(e) {
+            if (e.data.action == args.action) {
+            	if (e.data.msg == 'complete') {
+		            dfd.resolve(e.data.data); 
+            	}
+            	else if (e.data.msg == 'error') {
+            		dfd.reject(e); 
+            	}
+            }
+        });
+
+        IndexWorker.addEventListener('error', function(e) {
+            dfd.reject(e); 
+        });
+
+        IndexWorker.postMessage({action: args.action, options: args.options});
+    });
+ 
+    return def.promise(); 
+};
+
+//Load app data
 $.when(
 	$.getScript(baseFolder + 'data/js/payload_details.js'),
 	$.getScript(baseFolder + 'data/js/user_details.js'),
@@ -220,6 +254,67 @@ function refresh() {
 	updateUrl();
 }
 
+function search(term) {
+	function promiseIndexInit() {
+		return $.SearchIndex({action: 'init', options: [Config.baseUrl]});
+	}
+
+	function promiseTweetIndex() {
+		// Get the list of var_names of tweets that have been loaded
+		var var_names = $.grep(Grailbird.tweet_index, function(index) {
+			return !!Grailbird.data[index.var_name];
+		}).map(function(index) {
+			return index.var_name;
+		});
+
+		return $.SearchIndex({action: 'indexAll', options: [Grailbird.data, var_names]});
+	}
+
+	function promiseSearchResults() {
+		return $.SearchIndex({action: 'search', options: [term]});
+	}
+
+	function promiseUncachedTweetsLoad() {
+		var tweetFiles = [];
+		var unIndexed = [];
+		$.each(Grailbird.tweet_index, function(index, tweet_index) {
+			if (!Grailbird.data[tweet_index.var_name]) {
+				tweetFiles.push($.getScript(baseFolder + tweet_index.file_name));
+				unIndexed.push(tweet_index.var_name);
+			}
+		});
+
+		return $.when.apply(null, tweetFiles);
+	}
+
+	function getTweetsFromResults(results) {
+		return $.map(results, function(result, result_index) {
+			var result_id = result.ref.split('/');
+			var var_name = result_id[0];
+			var tweet_id = result_id[1];
+
+			return $.grep(Grailbird.data[var_name], function(tweet, index) {
+				tweet = tweet.retweeted_status || tweet;
+				return tweet.id_str == tweet_id;
+			});
+		});
+	}
+
+	$.when(promiseIndexInit(), promiseTweetIndex(), promiseSearchResults()).done(function(initResult, indexResults, searchReults) {
+		// Pre-cached tweets index, search based on current index
+		drawTweets(getTweetsFromResults(searchReults));
+	}).then(function() {
+		$.when(promiseUncachedTweetsLoad()).done(function(loadResults) {
+			// Tweet backlog loaded
+		}).then(function() {
+			$.when(promiseTweetIndex(), promiseSearchResults()).done(function(indexResults, searchReults) {
+				// Tweets re-index and search re-done for new index
+				drawTweets(getTweetsFromResults(searchReults));
+			});
+		});
+	});
+}
+
 function updateUrl() {
 	if (!hasUrlChanged) {
 		var var_name = Grailbird.cur_page !== 0 ? tweet_index[Grailbird.cur_page].var_name : '';
@@ -232,9 +327,9 @@ function updateUrl() {
 		else if (var_name) {
 			History.pushState(null, null, url);
 		}
-		else {
-			History.replaceState(null, null, Config.baseUrl);
-		}
+		// else {
+		// 	History.replaceState(null, null, Config.baseUrl);
+		// }
 	}
 
 	hasUrlChanged = false;
@@ -266,19 +361,21 @@ function refreshActiveHistory() {
 function loadTweets(tweet_data) {
 	var tweets = Grailbird.data[tweet_data.var_name];
 	if (tweets) {
-		drawTweets(tweets);
+		drawTweets(tweets, tweet_data.var_name);
 	}
 	else {
 		$.getScript(baseFolder + tweet_data.file_name, function() {
-			drawTweets(Grailbird.data[tweet_data.var_name]);
+			drawTweets(Grailbird.data[tweet_data.var_name], tweet_data.var_name);
 		});
 	}
 }
 
-function drawTweets(tweets) {
+function drawTweets(tweets, var_name) {
 	var render = '';
 	var curTweet;
-	dataset = tweets;
+
+	//Add to search index
+	// indexTweetAtVarName(tweets, var_name);
 
 	//Tweet Content
 	$.each(tweets, function(index, tweet) {
@@ -291,6 +388,8 @@ function drawTweets(tweets) {
 			curTweet.retweeter = tweet.user.screen_name;
 		}
 
+		tweet.indexed = true;
+
 		render += tmpl('tmpl_tweet', curTweet);
 	});
 
@@ -300,6 +399,12 @@ function drawTweets(tweets) {
 		$('.tweet_actions a').on('click', openTweetActionInWindow);
 	}, 1);
 }
+
+// function indexTweetAtVarName(tweet, var_name) {
+// 	if (!tweet || !var_name) { return false; }
+// 	console.log('indexTweetAtVarName', tweet, var_name);
+// 	$.SearchIndex({action: 'index', options: [tweet, var_name]});
+// }
 
 function scrollTo(element, duration, complete) {
 	$('html, body').animate({
