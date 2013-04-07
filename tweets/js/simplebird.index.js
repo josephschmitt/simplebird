@@ -18,7 +18,7 @@ self.addEventListener('message', function(e) {
 }, false);
 
 self.init = function(url) {
-    importScripts(url + '/js/lunr.js');
+    importScripts(url + '/js/lunr.min.js');
     self.initIndex();
     self.postMessage({action: 'init', msg: 'complete'});
 };
