@@ -208,7 +208,11 @@ function loadHistoryFromVarName(var_name) {
 
 function openTweetActionInWindow(e) {
 	e.preventDefault();
-	window.open(e.target.getAttribute('href'), '', 'width=520,height=360,menubar=no,toolbar=no');
+
+	var w_width = 520;
+    var w_height = 360;
+	var popup_options = 'menubar=no,toolbar=no,width='+w_width+',height='+w_height+',left=' + (window.screenX + $('body').width()/2 - w_width/2) + ', top='+(window.screenY + 80);
+	window.open(e.target.getAttribute('href'), '', popup_options);
 }
 
 function toggleTweetHistory(e, open) {
