@@ -64,28 +64,66 @@ a:hover {
 }
 
 header {
+  overflow: hidden;
   background: #2c2c2c;
-  background: -webkit-linear-gradient(top, #333333 0%, #1e1e1e 100%);
+  background: -webkit-linear-gradient(top, #404040 0%, #1e1e1e 100%);
   /* Webkit */
-  background: linear-gradient(to bottom, #333333 0%, #1e1e1e 100%);
+  background: linear-gradient(to bottom, #404040 0%, #1e1e1e 100%);
   /* W3C */
   color: #fff;
   padding: 1rem 0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
-header hgroup {
+header .header_wrap {
   max-width: 560px;
   min-width: 320px;
   margin: 0 auto;
   position: relative;
 }
-@media screen and (max-width: 600px) {
-  header hgroup > *:first-child {
-    margin-left: 10px;
-  }
-  header hgroup > *:last-child {
-    margin-right: 10px;
-  }
+header .header_wrap h1, header .header_wrap .search_header {
+  margin: 0 50px;
+  -webkit-transition: -webkit-transform 200ms ease;
+}
+header .search_header {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  -webkit-transform: translateY(-150%);
+}
+header .search_header .search_wrapper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -4px;
+}
+header .search_header input[type="search"] {
+  background: #fff;
+  width: 100%;
+  height: 2.2em;
+  border: 1px solid black;
+  font-size: 1.4em;
+  padding: 3px 0 2px 30px;
+  -webkit-border-radius: 26px;
+  -moz-border-radius: 26px;
+  -o-border-radius: 26px;
+  -ms-border-radius: 26px;
+  border-radius: 26px;
+}
+header .search_header input[type="search"], header .search_header input[type="search"]:focus {
+  moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+header h1 {
+  text-align: center;
+}
+header h1 a {
+  color: #ccc;
+  text-shadow: 0 -2px rgba(0, 0, 0, 0.75);
 }
 header a {
   font-size: 2em;
@@ -95,25 +133,41 @@ header a {
 header a:hover {
   text-decoration: none;
 }
-header .newtweet {
+header .search_btn, header .newtweet_btn {
   background: #3476b3;
   background: -webkit-linear-gradient(top, #7db7e9 0%, #3476b3 100%);
   /* Webkit */
   background: linear-gradient(to bottom, #7db7e9 0%, #3476b3 100%);
   /* W3C */
   padding: 0.5em 0.6em;
+  color: #fff;
   font-size: 1.5em;
+  border: 0;
   border-radius: .25em;
   box-shadow: 0 1px 1px #1e1e1e, inset 0 1px 1px rgba(255, 255, 255, 0.3);
   position: absolute;
+}
+header .search_btn {
+  left: 0;
+  top: -5px;
+  font-weight: bold;
+}
+header .newtweet_btn {
   right: 0;
-  top: -0.3rem;
+  top: -3px;
+}
+
+body.search h1 {
+  -webkit-transform: translateY(150%);
+}
+body.search .search_header {
+  -webkit-transform: translateY(0);
 }
 
 #main {
   background: #fff;
   border-radius: .5em;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   margin: 3rem auto;
   font-size: 1.5rem;
   position: relative;
@@ -134,7 +188,7 @@ nav {
   position: relative;
   z-index: 2;
   padding: 1.5rem 20px;
-  border-bottom: 1px solid #d3d3d3;
+  border-bottom: 1px solid lightgrey;
   background: #fff;
   border-top-left-radius: .5em;
   border-top-right-radius: .5em;
@@ -147,7 +201,7 @@ nav {
 }
 nav button {
   background: #e2e2e2;
-  border: 1px solid #d3d3d3;
+  border: 1px solid lightgrey;
   border-radius: 10em;
   color: #fff;
   font-size: 1.5em;
@@ -428,7 +482,7 @@ section .tweet .tweet_actions a:hover {
 
 .menu_open section {
   -webkit-transform: translateY(17em);
-  border-top: 1px solid #d3d3d3;
+  border-top: 1px solid lightgrey;
 }
 .menu_open section, .menu_open nav {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

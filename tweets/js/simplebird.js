@@ -140,7 +140,8 @@ function init() {
 
 	//Render header
 	$('header').html(tmpl('tmpl_header', Grailbird.user_details));
-	$('.newtweet').on('click', openTweetActionInWindow);
+	$('.newtweet_btn').on('click', openTweetActionInWindow);
+	$('.search_btn').on('click', toggleSearch);
 
 	//Render tweets
 	var url_var_name = getTweetVarFromUrl();
@@ -213,6 +214,23 @@ function openTweetActionInWindow(e) {
     var w_height = 360;
 	var popup_options = 'menubar=no,toolbar=no,width='+w_width+',height='+w_height+',left=' + (window.screenX + $('body').width()/2 - w_width/2) + ', top='+(window.screenY + 80);
 	window.open(e.target.getAttribute('href'), '', popup_options);
+}
+
+function toggleSearch() {
+	if ($(document.body).hasClass('search')) {
+		hideSearch();
+	}
+	else {
+		showSearch();
+	}
+}
+
+function showSearch() {
+	$(document.body).addClass('search');
+}
+
+function hideSearch() {
+	$(document.body).removeClass('search');
 }
 
 function toggleTweetHistory(e, open) {
@@ -331,9 +349,6 @@ function updateUrl() {
 		else if (var_name) {
 			History.pushState(null, null, url);
 		}
-		// else {
-		// 	History.replaceState(null, null, Config.baseUrl);
-		// }
 	}
 
 	hasUrlChanged = false;
@@ -378,9 +393,6 @@ function drawTweets(tweets, var_name) {
 	var render = '';
 	var curTweet;
 
-	//Add to search index
-	// indexTweetAtVarName(tweets, var_name);
-
 	//Tweet Content
 	$.each(tweets, function(index, tweet) {
 		curTweet = tweet.retweeted_status || tweet;
@@ -403,12 +415,6 @@ function drawTweets(tweets, var_name) {
 		$('.tweet_actions a').on('click', openTweetActionInWindow);
 	}, 1);
 }
-
-// function indexTweetAtVarName(tweet, var_name) {
-// 	if (!tweet || !var_name) { return false; }
-// 	console.log('indexTweetAtVarName', tweet, var_name);
-// 	$.SearchIndex({action: 'index', options: [tweet, var_name]});
-// }
 
 function scrollTo(element, duration, complete) {
 	$('html, body').animate({
