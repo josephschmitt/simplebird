@@ -65,7 +65,11 @@
 			<button id="prev" data-icon>&#xe002;</button>
 		{{/hasPrev}}
 		<dl>
-			<dt>{{date}} <em>{{tweet_count}} tweets</em></dt>
+			<dt>{{date}} 
+			{{#tweet_count}} 
+				<em>{{tweet_count}} tweets</em>
+			{{/tweet_count}}
+			</dt>
 		</dl>
 		{{#hasNext}}
 			<button id="next" data-icon>&#xe005;</button>

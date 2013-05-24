@@ -133,6 +133,13 @@ function init() {
 		}
 	};
 
+	GrailbirdSearch = {
+		hasPrev: false,
+		hasNext: false,
+		date: '',
+		tweet_count: ''
+	};
+
 	//Set page title
 	var start_month = CalendarMonths[Grailbird.tweet_index[Grailbird.tweet_index.length - 1].month - 1] + ' ' + Grailbird.tweet_index[Grailbird.tweet_index.length - 1].year;
 	var end_month = CalendarMonths[Grailbird.tweet_index[0].month - 1] + ' ' + Grailbird.tweet_index[0].year;
@@ -242,6 +249,17 @@ function onSearchSubmit(e) {
 	search(term);
 }
 
+function showSearchResults(term, results) {
+	//Render nav
+	GrailbirdSearch.date = 'Results for "' + term + '"';
+	GrailbirdSearch.tweet_count = results ? results.length : null;
+	$('nav').html(tmpl('tmpl_nav', GrailbirdSearch));
+
+	// $('#toggle_history').hide();
+
+	drawTweets(results || []);
+}
+
 function toggleTweetHistory(e, open) {
 	e.preventDefault();
 
@@ -331,16 +349,19 @@ function search(term) {
 		});
 	}
 
+	//Refresh view immediately
+	showSearchResults(term);
+
 	$.when(promiseIndexInit(), promiseTweetIndex(), promiseSearchResults()).done(function(initResult, indexResults, searchReults) {
 		// Pre-cached tweets index, search based on current index
-		drawTweets(getTweetsFromResults(searchReults));
+		showSearchResults(term, getTweetsFromResults(searchReults));
 	}).then(function() {
 		$.when(promiseUncachedTweetsLoad()).done(function(loadResults) {
 			// Tweet backlog loaded
 		}).then(function() {
 			$.when(promiseTweetIndex(), promiseSearchResults()).done(function(indexResults, searchReults) {
 				// Tweets re-index and search re-done for new index
-				drawTweets(getTweetsFromResults(searchReults));
+				showSearchResults(term, getTweetsFromResults(searchReults));
 			});
 		});
 	});
