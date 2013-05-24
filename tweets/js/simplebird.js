@@ -449,6 +449,7 @@ function drawTweets(tweets, var_name) {
 
 	//Defer drawing to next paint cycle
 	setTimeout(function() {
+		$('#main').css('height', '');
 		$('#tweet_list').html(render).removeClass('hidden');
 		$('.tweet_actions a').on('click', openTweetActionInWindow);
 	}, 1);
