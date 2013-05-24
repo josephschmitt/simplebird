@@ -164,7 +164,8 @@ body.search h1 {
 body.search .search_header {
   -webkit-transform: translateY(0);
 }
-body.search .toggle_history, body.search #tweet_history {
+
+body.searching #toggle_history, body.searching #tweet_history, body.searched #toggle_history, body.searched #tweet_history {
   display: none;
 }
 

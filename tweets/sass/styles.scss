@@ -236,8 +236,10 @@ body.search {
 	.search_header{
 		-webkit-transform: translateY(0);
 	}
+}
 
-	.toggle_history, #tweet_history {
+body.searching, body.searched {
+	#toggle_history, #tweet_history {
 		display: none;
 	}
 }
