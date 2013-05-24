@@ -368,12 +368,16 @@ function search(term) {
 }
 
 function showSearchResults(term, results) {
+	$('input[type=search]').blur();
+
 	//Render nav
 	GrailbirdSearch.date = '“' + term + '”';
 	GrailbirdSearch.tweet_count = results ? results.length : null;
 	$('nav').html(tmpl('tmpl_nav', GrailbirdSearch));
 
-	drawTweets(results || []);
+	setTimeout(function() {
+		drawTweets(results || []);
+	}, 10);
 }
 
 function updateUrl() {
