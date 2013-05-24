@@ -241,23 +241,15 @@ function showSearch() {
 
 function hideSearch() {
 	$(document.body).removeClass('search');
+	setTimeout(function() {
+		refresh();
+	}, 250);
 }
 
 function onSearchSubmit(e) {
 	e.preventDefault();
 	var term = $('input[type=search]').val();
 	search(term);
-}
-
-function showSearchResults(term, results) {
-	//Render nav
-	GrailbirdSearch.date = 'Results for "' + term + '"';
-	GrailbirdSearch.tweet_count = results ? results.length : null;
-	$('nav').html(tmpl('tmpl_nav', GrailbirdSearch));
-
-	// $('#toggle_history').hide();
-
-	drawTweets(results || []);
 }
 
 function toggleTweetHistory(e, open) {
@@ -301,7 +293,7 @@ function refresh() {
 
 	$('#prev').on('click', prev);
 	$('#next').on('click', next);
-	$('#toggle_history').on('click', toggleTweetHistory);
+	$('#toggle_history').show().on('click', toggleTweetHistory);
 
 	refreshActiveHistory();
 	loadTweets(tweet_index[Grailbird.cur_page]);
@@ -370,6 +362,17 @@ function search(term) {
 			});
 		});
 	});
+}
+
+function showSearchResults(term, results) {
+	//Render nav
+	GrailbirdSearch.date = '“' + term + '”';
+	GrailbirdSearch.tweet_count = results ? results.length : null;
+	$('nav').html(tmpl('tmpl_nav', GrailbirdSearch));
+
+	$('#toggle_history').hide();
+
+	drawTweets(results || []);
 }
 
 function updateUrl() {
