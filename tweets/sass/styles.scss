@@ -205,6 +205,10 @@ header {
 		position: absolute;
 		color: #ccc;
 		text-shadow: 0 -1px rgba(0, 0, 0, 0.75);
+		text-align: center;
+		padding: 0;
+		width: 35px;
+		height: 25px;
 
 		&:hover {
 			color: #fff;
@@ -214,7 +218,7 @@ header {
 
 	.search_btn {
 		left: 0;
-		top: -2px;
+		top: 0px;
 		font-size: 2em;
 		font-weight: bold;
 	}
@@ -222,7 +226,7 @@ header {
 	.newtweet_btn {
 		font-size: 2.5em;
 		right: 0;
-		top: -2px;
+		top: 0px;
 	}
 }
 
@@ -233,6 +237,10 @@ body.search {
 
 	.search_header{
 		-webkit-transform: translateY(0);
+	}
+
+	.search_btn {
+		color: #fff;
 	}
 }
 
