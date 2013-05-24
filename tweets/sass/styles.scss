@@ -155,12 +155,13 @@ header {
 		}
 
 		input[type="search"] {
-			&, &:focus {
+			&, &:focus, &::-webkit-search-cancel-button {
 				moz-appearance: none;
 				-ms-appearance: none;
 				-o-appearance: none;
 				-webkit-appearance: none;
 				appearance: none;
+				outline: none;
 			}
 
 			background: #fff;
@@ -168,7 +169,7 @@ header {
 			height: 2.2em;
 			border: 1px solid #000;
 			font-size: 1.4em;
-			padding: 3px 0 2px 30px;
+			padding: 3px 0 2px;
 
 			-webkit-border-radius: 26px;
 			-moz-border-radius: 26px;

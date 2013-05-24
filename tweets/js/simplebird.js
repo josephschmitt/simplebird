@@ -142,6 +142,8 @@ function init() {
 	$('header').html(tmpl('tmpl_header', Grailbird.user_details));
 	$('.newtweet_btn').on('click', openTweetActionInWindow);
 	$('.search_btn').on('click', toggleSearch);
+	$('.search_header').on('submit', onSearchSubmit);
+	$('input[type=search]').on('submit', onSearchSubmit);
 
 	//Render tweets
 	var url_var_name = getTweetVarFromUrl();
@@ -227,10 +229,17 @@ function toggleSearch() {
 
 function showSearch() {
 	$(document.body).addClass('search');
+	$('input[type=search]').focus();
 }
 
 function hideSearch() {
 	$(document.body).removeClass('search');
+}
+
+function onSearchSubmit(e) {
+	e.preventDefault();
+	var term = $('input[type=search]').val();
+	search(term);
 }
 
 function toggleTweetHistory(e, open) {
