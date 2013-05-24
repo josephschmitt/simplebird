@@ -127,11 +127,10 @@ header {
 		max-width: $max_column_width;
 		min-width: $min_column_width;
 		margin: 0 auto;
-
 		position: relative;
 
 		h1, .search_header {
-			margin: 0 50px;
+			margin: 0 36px;
 			-webkit-transition: -webkit-transform 200ms ease;
 		}
 	}
@@ -167,7 +166,7 @@ header {
 			height: 2.2em;
 			border: 1px solid #000;
 			font-size: 1.4em;
-			padding: 3px 5px 2px;
+			padding: 3px 5px 2px 15px;
 
 			-webkit-border-radius: 26px;
 			-moz-border-radius: 26px;
