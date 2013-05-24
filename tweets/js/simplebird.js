@@ -265,20 +265,25 @@ function toggleTweetHistory(e, open) {
 
     var $targ = $('#main');
     var open = open === undefined ? !$targ.hasClass('menu_open') : open;
+    
     if (open) {
-    	scrollTo('#main', 150, function() {
+    	scrollTo('#main', 150);
+    	setTimeout(function() {
 	        $targ.addClass('menu_open');
 	        
 	        var height = Math.min(parseInt($('#tweet_history').css('height')), parseInt($('#tweet_history').css('max-height')));
+
+	        $('#main').css('height', $('#main').height() + height + 'px');
 	        $('.menu_open section').css({
 	        	'-webkit-transform': 'translateY(' + height + 'px)',
 	        	'-moz-transform': 'translateY(' + height + 'px)',
 	        	'-ms-transform': 'translateY(' + height + 'px)',
 	        	'transform': 'translateY(' + height + 'px)'
 	        });
-    	});
+    	}, 150);
     }
     else {
+    	$('#main').css('height', '');
     	$('.menu_open section').css({
         	'-webkit-transform': '',
         	'-moz-transform': '',
