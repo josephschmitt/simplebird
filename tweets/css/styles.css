@@ -164,6 +164,9 @@ body.search h1 {
 body.search .search_header {
   -webkit-transform: translateY(0);
 }
+body.search .toggle_history, body.search #tweet_history {
+  display: none;
+}
 
 #main {
   background: #fff;
@@ -300,7 +303,7 @@ section {
     padding: 20px 10px;
   }
 }
-section .tweet {
+section li {
   display: table;
   padding-bottom: 1em;
   margin-bottom: 1em;
@@ -308,7 +311,7 @@ section .tweet {
   position: relative;
   width: 100%;
 }
-section .tweet:last-child {
+section li:last-child {
   margin-bottom: 0;
   border-bottom: 0;
 }
@@ -419,6 +422,11 @@ section .tweet .tweet_actions a {
 }
 section .tweet .tweet_actions a:hover {
   text-decoration: none;
+}
+section .searching {
+  text-align: center;
+  font-size: 1.2em;
+  padding-bottom: 0;
 }
 
 #tweet_history {

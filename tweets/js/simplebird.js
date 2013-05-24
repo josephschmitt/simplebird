@@ -240,7 +240,7 @@ function showSearch() {
 }
 
 function hideSearch() {
-	$(document.body).removeClass('search');
+	$(document.body).removeClass('search').removeClass('searching').removeClass('more').removeClass('searched');
 	setTimeout(function() {
 		refresh();
 	}, 250);
@@ -347,9 +347,11 @@ function search(term) {
 	}
 
 	//Refresh view immediately
+	$(document.body).addClass('searching');
 	showSearchResults(term);
 
 	$.when(promiseIndexInit(), promiseTweetIndex(), promiseSearchResults()).done(function(initResult, indexResults, searchReults) {
+		$(document.body).addClass('more');
 		// Pre-cached tweets index, search based on current index
 		showSearchResults(term, getTweetsFromResults(searchReults));
 	}).then(function() {
@@ -358,6 +360,7 @@ function search(term) {
 		}).then(function() {
 			$.when(promiseTweetIndex(), promiseSearchResults()).done(function(indexResults, searchReults) {
 				// Tweets re-index and search re-done for new index
+				$(document.body).removeClass('searching').removeClass('more').addClass('searched');
 				showSearchResults(term, getTweetsFromResults(searchReults));
 			});
 		});
@@ -369,8 +372,6 @@ function showSearchResults(term, results) {
 	GrailbirdSearch.date = '“' + term + '”';
 	GrailbirdSearch.tweet_count = results ? results.length : null;
 	$('nav').html(tmpl('tmpl_nav', GrailbirdSearch));
-
-	$('#toggle_history').hide();
 
 	drawTweets(results || []);
 }
@@ -446,6 +447,13 @@ function drawTweets(tweets, var_name) {
 
 		render += tmpl('tmpl_tweet', curTweet);
 	});
+
+	//If searching, append a searching row at the bottom
+	if ($(document.body).hasClass('searching')) {
+		var data = {more: $(document.body).hasClass('more')};
+		console.log('data', data);
+		render += tmpl('tmpl_searching', data);
+	}
 
 	//Defer drawing to next paint cycle
 	setTimeout(function() {

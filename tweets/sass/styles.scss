@@ -235,7 +235,11 @@ body.search {
 
 	.search_header{
 		-webkit-transform: translateY(0);
-	} 
+	}
+
+	.toggle_history, #tweet_history {
+		display: none;
+	}
 }
 
 #main {
@@ -377,7 +381,7 @@ section {
 		padding: $gutter_width $gutter_width/2;
 	}
 
-	.tweet {
+	li {
 		display: table;
 		padding-bottom: 1em;
 		margin-bottom: 1em;
@@ -389,7 +393,9 @@ section {
 			margin-bottom: 0;
 			border-bottom: 0;
 		}
+	}
 
+	.tweet {
 		.avatar {
 			border-radius: 0.5rem;
 			display: table-cell;
@@ -521,6 +527,12 @@ section {
 			}
 		}
 	}
+
+	.searching {
+		text-align: center;
+		font-size: 1.2em;
+		padding-bottom: 0;
+	}
 }
 
 #tweet_history {
@@ -621,8 +633,4 @@ footer {
 		color: #bbb;
 		text-decoration: underline;
 	}
-}
-
-.search {
-
 }
