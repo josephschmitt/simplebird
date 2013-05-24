@@ -235,8 +235,10 @@ function toggleSearch() {
 }
 
 function showSearch() {
-	$(document.body).addClass('search');
 	$('input[type=search]').focus();
+	setTimeout(function() {
+		$(document.body).addClass('search');
+	}, 50);
 }
 
 function hideSearch() {
