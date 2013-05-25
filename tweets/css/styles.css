@@ -142,7 +142,7 @@ header .search_btn, header .newtweet_btn {
   background: transparent;
   border: 0;
   position: absolute;
-  color: #ccc;
+  color: #cccccc !important;
   text-shadow: 0 -1px rgba(0, 0, 0, 0.75);
   text-align: center;
   padding: 0;
@@ -172,7 +172,7 @@ body.search .search_header {
   -webkit-transform: translateY(0);
 }
 body.search .search_btn {
-  color: #fff;
+  color: white !important;
 }
 
 body.searching #toggle_history, body.searching #tweet_history, body.searched #toggle_history, body.searched #tweet_history {

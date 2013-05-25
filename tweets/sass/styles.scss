@@ -202,7 +202,7 @@ header {
 		background: transparent;
 		border: 0;
 		position: absolute;
-		color: #ccc;
+		color: #ccc !important;
 		text-shadow: 0 -1px rgba(0, 0, 0, 0.75);
 		text-align: center;
 		padding: 0;
@@ -239,7 +239,7 @@ body.search {
 	}
 
 	.search_btn {
-		color: #fff;
+		color: #fff !important;
 	}
 }
 
