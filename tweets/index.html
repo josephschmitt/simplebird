@@ -33,7 +33,7 @@
 	<!-- iPad (Retina, landscape) SPLASHSCREEN-->
 	<link href="imgs/apple-touch-startup-image-2048x1536.png" media="(device-width: 1536px)  and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
 </head>
-<body>
+<body class="">
 	<header></header>
 	<div id="main">
 		<nav></nav>
@@ -47,17 +47,29 @@
 	</footer>
 
 	<script type="text/tim" id="tmpl_header">
-		<hgroup>
-			<h1><a class="atname" href="//twitter.com/{{screen_name}}" title="{{full_name}}">{{screen_name}}</a></h1>
-			<a href="https://twitter.com/intent/tweet" class="newtweet" data-icon>&#xe000;</a>
-		</hgroup>
+		<div class="header_wrap">
+			<h1>
+				<a class="atname" href="//twitter.com/{{screen_name}}" title="{{full_name}}">{{screen_name}}</a>
+			</h1>
+			<form class="search_header">
+				<div class="search_wrapper">
+					<input type="search" placeholder="Search..." data-speech-enabled>
+				</div>
+			</form>
+			<button class="search_btn" data-icon>&#xe009;</button>
+			<a href="https://twitter.com/intent/tweet" class="newtweet_btn" data-icon>&#xe000;</a>
+		</div>
 	</script>
 	<script type="text/tim" id="tmpl_nav">
 		{{#hasPrev}}
 			<button id="prev" data-icon>&#xe002;</button>
 		{{/hasPrev}}
 		<dl>
-			<dt>{{date}} <em>{{tweet_count}} tweets</em></dt>
+			<dt>{{date}} 
+			{{#tweet_count}} 
+				<em>{{tweet_count}} tweets</em>
+			{{/tweet_count}}
+			</dt>
 		</dl>
 		{{#hasNext}}
 			<button id="next" data-icon>&#xe005;</button>
@@ -109,6 +121,16 @@
 					</p>
 				</div>
 			</div>
+		</li>
+	</script>
+	<script type="text/tim" id="tmpl_searching">
+		<li class="searching">
+		{{^more}}
+			Searching...
+		{{/more}}
+		{{#more}}
+			Looking for more results...
+		{{/more}}
 		</li>
 	</script>
 

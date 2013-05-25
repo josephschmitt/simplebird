@@ -4,6 +4,40 @@ var CalendarMonths = ["January", "February", "March", "April", "May", "June", "J
 var hasUrlChanged = false;
 var baseFolder = (Config.useCleanUrl ? Config.baseUrl + '/' : '');
 
+// Set up search index web worker
+var IndexWorker = new Worker(Config.baseUrl + '/js/simplebird.index.js');
+// Set up listener for log events
+IndexWorker.addEventListener('message', function(e) {
+	if (e.data.msg == 'log') {
+		console.log('Worker Log:', e.data.options);
+	}
+});
+
+// Set up search index worker as a jQuery Promise
+$.SearchIndex = function(args) {
+	var def = $.Deferred(function(dfd) {
+        IndexWorker.addEventListener('message', function(e) {
+            if (e.data.action == args.action) {
+            	if (e.data.msg == 'complete') {
+		            dfd.resolve(e.data.data); 
+            	}
+            	else if (e.data.msg == 'error') {
+            		dfd.reject(e); 
+            	}
+            }
+        });
+
+        IndexWorker.addEventListener('error', function(e) {
+            dfd.reject(e); 
+        });
+
+        IndexWorker.postMessage({action: args.action, options: args.options});
+    });
+ 
+    return def.promise(); 
+};
+
+//Load app data
 $.when(
 	$.getScript(baseFolder + 'data/js/payload_details.js'),
 	$.getScript(baseFolder + 'data/js/user_details.js'),
@@ -99,6 +133,13 @@ function init() {
 		}
 	};
 
+	GrailbirdSearch = {
+		hasPrev: false,
+		hasNext: false,
+		date: '',
+		tweet_count: ''
+	};
+
 	//Set page title
 	var start_month = CalendarMonths[Grailbird.tweet_index[Grailbird.tweet_index.length - 1].month - 1] + ' ' + Grailbird.tweet_index[Grailbird.tweet_index.length - 1].year;
 	var end_month = CalendarMonths[Grailbird.tweet_index[0].month - 1] + ' ' + Grailbird.tweet_index[0].year;
@@ -106,7 +147,10 @@ function init() {
 
 	//Render header
 	$('header').html(tmpl('tmpl_header', Grailbird.user_details));
-	$('.newtweet').on('click', openTweetActionInWindow);
+	$('.newtweet_btn').on('click', openTweetActionInWindow);
+	$('.search_btn').on('click', toggleSearch);
+	$('.search_header').on('submit', onSearchSubmit);
+	$('input[type=search]').on('submit', onSearchSubmit);
 
 	//Render tweets
 	var url_var_name = getTweetVarFromUrl();
@@ -174,7 +218,40 @@ function loadHistoryFromVarName(var_name) {
 
 function openTweetActionInWindow(e) {
 	e.preventDefault();
-	window.open(e.target.getAttribute('href'), '', 'width=520,height=360,menubar=no,toolbar=no');
+
+	var w_width = 520;
+    var w_height = 360;
+	var popup_options = 'menubar=no,toolbar=no,width='+w_width+',height='+w_height+',left=' + (window.screenX + $('body').width()/2 - w_width/2) + ', top='+(window.screenY + 80);
+	window.open(e.target.getAttribute('href'), '', popup_options);
+}
+
+function toggleSearch() {
+	if ($(document.body).hasClass('search')) {
+		hideSearch();
+	}
+	else {
+		showSearch();
+	}
+}
+
+function showSearch() {
+	$('input[type=search]').focus();
+	setTimeout(function() {
+		$(document.body).addClass('search');
+	}, 50);
+}
+
+function hideSearch() {
+	$(document.body).removeClass('search').removeClass('searching').removeClass('more').removeClass('searched');
+	setTimeout(function() {
+		refresh();
+	}, 250);
+}
+
+function onSearchSubmit(e) {
+	e.preventDefault();
+	var term = $('input[type=search]').val();
+	search(term);
 }
 
 function toggleTweetHistory(e, open) {
@@ -182,20 +259,25 @@ function toggleTweetHistory(e, open) {
 
     var $targ = $('#main');
     var open = open === undefined ? !$targ.hasClass('menu_open') : open;
+    
     if (open) {
-    	scrollTo('#main', 150, function() {
+    	scrollTo('#main', 150);
+    	setTimeout(function() {
 	        $targ.addClass('menu_open');
 	        
 	        var height = Math.min(parseInt($('#tweet_history').css('height')), parseInt($('#tweet_history').css('max-height')));
+
+	        $('#main').css('height', $('#main').height() + height + 'px');
 	        $('.menu_open section').css({
 	        	'-webkit-transform': 'translateY(' + height + 'px)',
 	        	'-moz-transform': 'translateY(' + height + 'px)',
 	        	'-ms-transform': 'translateY(' + height + 'px)',
 	        	'transform': 'translateY(' + height + 'px)'
 	        });
-    	});
+    	}, 150);
     }
     else {
+    	$('#main').css('height', '');
     	$('.menu_open section').css({
         	'-webkit-transform': '',
         	'-moz-transform': '',
@@ -213,11 +295,91 @@ function refresh() {
 
 	$('#prev').on('click', prev);
 	$('#next').on('click', next);
-	$('#toggle_history').on('click', toggleTweetHistory);
+	$('#toggle_history').show().on('click', toggleTweetHistory);
 
 	refreshActiveHistory();
 	loadTweets(tweet_index[Grailbird.cur_page]);
 	updateUrl();
+}
+
+function search(term) {
+	function promiseIndexInit() {
+		return $.SearchIndex({action: 'init', options: [Config.baseUrl]});
+	}
+
+	function promiseTweetIndex() {
+		// Get the list of var_names of tweets that have been loaded
+		var var_names = $.grep(Grailbird.tweet_index, function(index) {
+			return !!Grailbird.data[index.var_name];
+		}).map(function(index) {
+			return index.var_name;
+		});
+
+		return $.SearchIndex({action: 'indexAll', options: [Grailbird.data, var_names]});
+	}
+
+	function promiseSearchResults() {
+		return $.SearchIndex({action: 'search', options: [term]});
+	}
+
+	function promiseUncachedTweetsLoad() {
+		var tweetFiles = [];
+		var unIndexed = [];
+		$.each(Grailbird.tweet_index, function(index, tweet_index) {
+			if (!Grailbird.data[tweet_index.var_name]) {
+				tweetFiles.push($.getScript(baseFolder + tweet_index.file_name));
+				unIndexed.push(tweet_index.var_name);
+			}
+		});
+
+		return $.when.apply(null, tweetFiles);
+	}
+
+	function getTweetsFromResults(results) {
+		return $.map(results, function(result, result_index) {
+			var result_id = result.ref.split('/');
+			var var_name = result_id[0];
+			var tweet_id = result_id[1];
+
+			return $.grep(Grailbird.data[var_name], function(tweet, index) {
+				tweet = tweet.retweeted_status || tweet;
+				return tweet.id_str == tweet_id;
+			});
+		});
+	}
+
+	//Refresh view immediately
+	$(document.body).addClass('searching');
+	showSearchResults(term);
+
+	$.when(promiseIndexInit(), promiseTweetIndex(), promiseSearchResults()).done(function(initResult, indexResults, searchReults) {
+		$(document.body).addClass('more');
+		// Pre-cached tweets index, search based on current index
+		showSearchResults(term, getTweetsFromResults(searchReults));
+	}).then(function() {
+		$.when(promiseUncachedTweetsLoad()).done(function(loadResults) {
+			// Tweet backlog loaded
+		}).then(function() {
+			$.when(promiseTweetIndex(), promiseSearchResults()).done(function(indexResults, searchReults) {
+				// Tweets re-index and search re-done for new index
+				$(document.body).removeClass('searching').removeClass('more').addClass('searched');
+				showSearchResults(term, getTweetsFromResults(searchReults));
+			});
+		});
+	});
+}
+
+function showSearchResults(term, results) {
+	$('input[type=search]').blur();
+
+	//Render nav
+	GrailbirdSearch.date = '“' + term + '”';
+	GrailbirdSearch.tweet_count = results ? results.length : null;
+	$('nav').html(tmpl('tmpl_nav', GrailbirdSearch));
+
+	setTimeout(function() {
+		drawTweets(results || []);
+	}, 10);
 }
 
 function updateUrl() {
@@ -229,7 +391,7 @@ function updateUrl() {
 		if (Config.useCleanUrl && History.getState().hash.indexOf('date=') > -1) {
 			History.replaceState(null, null, url);
 		}
-		else {
+		else if (var_name) {
 			History.pushState(null, null, url);
 		}
 	}
@@ -263,19 +425,18 @@ function refreshActiveHistory() {
 function loadTweets(tweet_data) {
 	var tweets = Grailbird.data[tweet_data.var_name];
 	if (tweets) {
-		drawTweets(tweets);
+		drawTweets(tweets, tweet_data.var_name);
 	}
 	else {
 		$.getScript(baseFolder + tweet_data.file_name, function() {
-			drawTweets(Grailbird.data[tweet_data.var_name]);
+			drawTweets(Grailbird.data[tweet_data.var_name], tweet_data.var_name);
 		});
 	}
 }
 
-function drawTweets(tweets) {
+function drawTweets(tweets, var_name) {
 	var render = '';
 	var curTweet;
-	dataset = tweets;
 
 	//Tweet Content
 	$.each(tweets, function(index, tweet) {
@@ -288,11 +449,21 @@ function drawTweets(tweets) {
 			curTweet.retweeter = tweet.user.screen_name;
 		}
 
+		tweet.indexed = true;
+
 		render += tmpl('tmpl_tweet', curTweet);
 	});
 
+	//If searching, append a searching row at the bottom
+	if ($(document.body).hasClass('searching')) {
+		var data = {more: $(document.body).hasClass('more')};
+		console.log('data', data);
+		render += tmpl('tmpl_searching', data);
+	}
+
 	//Defer drawing to next paint cycle
 	setTimeout(function() {
+		$('#main').css('height', '');
 		$('#tweet_list').html(render).removeClass('hidden');
 		$('.tweet_actions a').on('click', openTweetActionInWindow);
 	}, 1);
