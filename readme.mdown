@@ -1,8 +1,17 @@
 # Simplebird
 Simplebird is small, fast, simple implementation of Grailbird Twitter archive. Its goal is to load the minimum amount of data as quickly as possible to display your past tweets. It also aims to be viewable and performant on desktop machines as well as touch and mobile devices.
 
+# Requirements
+For the most part, Simplebird is self-contained and can be run on your local computer by opening the index.html file[^1]. However, for more advanced features such as Search, you'll need to have a web server running, either locally on your computer, or hosted remotely. The server itself has no other requirements other than being able to serve files ([Apache](http://www.apache.org/), [nginx](http://wiki.nginx.org/Main), etc.);
+
 # Installation
-Put the `tweets/` directory on your web server. Copy and paste the `data/` directory from your downloaded Tweet archive inside the `tweets/` folder. Open index.html.
+If you haven't already done so, you'll need to request your Twitter Archive from Twitter. Go to [https://twitter.com/settings/account](https://twitter.com/settings/account) and scroll to the bottom of the page, where you'll see the "Request your archive" button, like so:
+
+[![Request your archive](http://cl.ly/PC3G/image.png)](https://twitter.com/settings/account)
+
+Within a few minutes you should get an email from Twitter with a link to your archive. Click on that link, download the Zip archive of your tweets, and extract it somewhere. You'll need this in a second.
+
+Next, download or clone Simplebird and grab the `tweets/` directory, preferably uploading it to your web server. Then, open up the folder you got from your Twitter archive, copy the `data/` directory, and paste it inside the `tweets/` folder you hopefully just uploaded to your server. Open index.html, and you should see your tweets.
 
 # Using clean urls
 Deep linking was introduced into Simplebird in version 0.3, using the `?date=` query parameter. However, in version 0.3.3, clean url support was added, turning urls such as `tweets/?date=2012_03` into `tweets/2012_03`. To get this working, you'll have to go through a couple extra steps:
@@ -20,6 +29,15 @@ Config.baseUrl          //defaults to "/tweets". Set this to the directory of yo
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^tweets/(.*)/?$ tweets/index.html [L]</code></pre>
+
+# How search works
+Simplebird v0.5 brought with it the ability to search through your past tweets. However, since the point of this project is to be as self-contained as possible, that means that the search has to happen on the Front End via JavaScript. This isn't the fastest method to do search, and therefore the search results experience is a little different than what you might be used to with something like Google:
+
+1. Immediately after initiating your search, Simplebird will perform that search on whatever months of tweets you've already loaded. If you haven't browsed around yet, then only the current month will be searched. If you clicked around a bit before searching, the search will be done on how ever many months you clicked on (and therefore loaded in your browser). This is so that *something* comes back as a search result as quickly as possible. At the bottom of the results, you'll see it says “Looking for more results”.
+
+2. After the initial search is performed, Simplebird will load in *all* of your tweets and then re-do the search on those. This **will** take a while, especially if you've been tweeting since 2007.
+
+3. Once the backlog search is complete, Simplebird will update the results page with the results from all of your past tweets. The “Looking for more results” text will be gone, and you'll hopefully have a nice, accurate search results page, sorted by relevancy.
 
 # Building the project
 The source files for this project depend on SASS for StyleSheet sanity and UglifyJS to keep the requests and file size small. If you don't want to use either of them, just point the `<script>` tags in `tweets/index.html` to the CSS and non-min JS equivalents. However, if you'd like to make use of SASS and Uglify and you have [NodeJS](http://nodejs.org/) installed, you can do so via the included [Grunt](http://gruntjs.com) tasks.
@@ -45,3 +63,9 @@ Once you have the repo cloned, run the following command in your terminal at the
 
  `grunt watch` 
  This will automatically listen for file changes and compile them using one of the two above commands.
+
+ [^1]: This is mostly true, but there are a few exceptions. In Chrome, for instance, the security policy won't let you load remote assets if you open the HTML file directly from your computer. There are two ways around this: 
+
+ 1. Don't open the file locally, upload it instead to a server, 
+ 2. Open the `tweets/` directory using a locally installed web server such as Apache
+ 3. If you *really* want to open the file locally, you can set change the security policy for your browser, as detailed here: [https://github.com/mrdoob/three.js/wiki/How-to-run-things-locally](https://github.com/mrdoob/three.js/wiki/How-to-run-things-locally)
