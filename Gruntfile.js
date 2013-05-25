@@ -19,7 +19,7 @@ module.exports = function(grunt) {
 		concat: {
 			lib: {
 				files: {
-					'tweets/js/lib.js': ['tweets/js/jquery*.js', 'tweets/js/hogan*.js', 'tweets/js/history.min.js']
+					'tweets/js/lib.js': ['tweets/js/jquery.min.js', 'tweets/js/hogan*.min.js', 'tweets/js/history.min.js']
 				}
 			}
 		},
