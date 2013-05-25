@@ -2,7 +2,7 @@
 Simplebird is a small, fast, simple implementation of Grailbird Twitter archive. Its goal is to load the minimum amount of data as quickly as possible to display your past tweets. It also aims to be viewable and performant on desktop machines as well as touch and mobile devices.
 
 # Requirements
-For the most part, Simplebird is self-contained and can be run on your local computer by opening the index.html file (caveat at the bottom of this page). However, for more advanced features such as Search, you'll need to have a web server running, either locally on your computer, or hosted remotely. The server itself has no other requirements other than being able to serve files ([Apache](http://www.apache.org/), [nginx](http://wiki.nginx.org/Main), etc.);
+For the most part, Simplebird is self-contained and can be run on your local computer by opening the index.html file (see caveat at the bottom of this page). However, for more advanced features such as Search, you'll need to have a web server running, either locally on your computer, or hosted remotely. The server itself has no other requirements other than being able to serve files ([Apache](http://www.apache.org/), [nginx](http://wiki.nginx.org/Main), etc.);
 
 # Installation
 If you haven't already done so, you'll need to request your Twitter Archive from Twitter. Go to [https://twitter.com/settings/account](https://twitter.com/settings/account) and scroll to the bottom of the page, where you'll see the "Request your archive" button, like so:
@@ -47,7 +47,7 @@ Once you have the repo cloned, run the following command in your terminal at the
 
  `npm install`
 
- Once they've been installed, you can run one of three commands: 
+ Once they've been installed, you can run one of these commands: 
 
  `grunt`
  This will run all the below commands in order.
@@ -65,7 +65,7 @@ Once you have the repo cloned, run the following command in your terminal at the
  This will automatically listen for file changes and compile them using one of the two above commands.
 
 
-#Caveat
+# Local file caveat
 Technically speaking, Simplebird *can* be run by just opening the file directly in your browser. However, some browsers have implemented a security policy that won't let you load remote assets if you open the HTML file directly from your computer. There are three ways around this: 
 
  1. Don't open the file locally, upload it to a server instead.
