@@ -145,6 +145,11 @@ function init() {
 	var end_month = CalendarMonths[Grailbird.tweet_index[0].month - 1] + ' ' + Grailbird.tweet_index[0].year;
 	document.title = "Tweets for " + Grailbird.user_details.full_name + " (@" + Grailbird.user_details.screen_name + "), " + start_month + '—' + end_month;
 
+	//Use "@username" if username is less than 12 characters, otherwise use "Tweets"
+	//If the web app title is over 13 characters, Safari cuts it off. 
+	var webapp_title = Grailbird.user_details.screen_name.length <= 12 ? '@'+Grailbird.user_details.screen_name : $('[name="apple-mobile-web-app-title"]').attr('content');
+	$('[name="apple-mobile-web-app-title"]').attr('content', webapp_title);
+
 	//Render header
 	$('header').html(tmpl('tmpl_header', Grailbird.user_details));
 	$('.newtweet_btn').on('click', openTweetActionInWindow);
