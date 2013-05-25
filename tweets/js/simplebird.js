@@ -261,10 +261,11 @@ function toggleTweetHistory(e, open) {
     var open = open === undefined ? !$targ.hasClass('menu_open') : open;
     
     if (open) {
+    	$('#tweet_history').css('display', 'block');
     	scrollTo('#main', 150);
     	setTimeout(function() {
 	        $targ.addClass('menu_open');
-	        
+
 	        var height = Math.min(parseInt($('#tweet_history').css('height')), parseInt($('#tweet_history').css('max-height')));
 
 	        $('#main').css('height', $('#main').height() + height + 'px');
@@ -286,6 +287,10 @@ function toggleTweetHistory(e, open) {
         });
 
         $targ.removeClass('menu_open');
+
+    	setTimeout(function() {
+    		$('#tweet_history').css('display', '');
+    	}, 500);
     }
 }
 

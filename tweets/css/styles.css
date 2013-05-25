@@ -88,6 +88,10 @@ header .header_wrap {
 header .header_wrap h1, header .header_wrap .search_header {
   margin: 0 36px;
   -webkit-transition: -webkit-transform 200ms ease;
+  -moz-transition: -webkit-transform 200ms ease;
+  -ms-transition: -webkit-transform 200ms ease;
+  -o-transition: -webkit-transform 200ms ease;
+  transition: -webkit-transform 200ms ease;
 }
 header h1 {
   text-align: center;
@@ -442,6 +446,7 @@ section .searching {
 }
 
 #tweet_history {
+  display: none;
   position: absolute;
   padding: 20px;
   background: #fff;
